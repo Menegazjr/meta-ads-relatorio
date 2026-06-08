@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Ads — Relatório</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --border: #e2e0d8;
+    --text: #1a1917;
+    --muted: #6b6960;
+    --accent: #1877f2;
+    --accent-light: #e8f0fe;
+    --success: #1a7a4a;
+    --success-bg: #e6f4ed;
+    --danger: #c0392b;
+    --danger-bg: #fdf0ee;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .container { max-width: 680px; margin: 0 auto; }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+
+  .logo {
+    width: 40px; height: 40px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .logo svg { width: 22px; height: 22px; fill: white; }
+
+  header h1 { font-size: 18px; font-weight: 600; }
+  header p { font-size: 13px; color: var(--muted); margin-top: 1px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .step-num {
+    width: 20px; height: 20px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 5px; }
+
+  input, select {
+    width: 100%;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input:focus, select:focus { border-color: var(--accent); background: white; }
+  input[type=password] { font-family: 'DM Mono', monospace; font-size: 13px; }
+
+  .row { display: flex; gap: 10px; }
+  .row > div:first-child { flex: 1; }
+
+  button {
+    height: 40px;
+    padding: 0 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  button:hover { background: var(--bg); border-color: #ccc; }
+  button.primary { background: var(--accent); color: white; border-color: var(--accent); }
+  button.primary:hover { background: #1565d8; border-color: #1565d8; }
+  button.green { background: #25d366; color: white; border-color: #25d366; }
+  button.green:hover { background: #1ebe5a; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 1rem; }
+
+  .metric {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+
+  .metric-label { font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+  .metric-value { font-size: 20px; font-weight: 600; }
+
+  .error {
+    font-size: 13px;
+    color: var(--danger);
+    background: var(--danger-bg);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    display: none;
+  }
+
+  .success-badge {
+    font-size: 12px;
+    color: var(--success);
+    background: var(--success-bg);
+    border-radius: 6px;
+    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .disabled { opacity: 0.45; pointer-events: none; }
+
+  .whats-box {
+    background: #e9fbe5;
+    border: 1px solid #c3edb8;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    font-size: 14px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    color: #1a1917;
+    margin-bottom: 1rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .token-link {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    margin-left: 8px;
+  }
+  .token-link:hover { text-decoration: underline; }
+
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+  }
+  .spinner.dark { border-color: rgba(0,0,0,0.15); border-top-color: var(--accent); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  #section-campaigns, #section-metrics, #section-whatsapp { display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Meta Ads — Relatório</h1>
+      <p>Gere e envie métricas pelo WhatsApp</p>
+    </div>
+  </header>
+
+  <!-- STEP 1: Token -->
+  <div class="card" id="section-token">
+    <div class="card-title"><span class="step-num">1</span> Access Token
+      <a class="token-link" href="https://developers.facebook.com/tools/explorer/" target="_blank">→ Obter token</a>
+    </div>
+    <label>Cole seu token de acesso</label>
+    <div class="row">
+      <div><input type="password" id="token-input" placeholder="EAAxxxxx..." /></div>
+      <button class="primary" onclick="loadAccounts()" id="btn-connect">Conectar</button>
+    </div>
+    <div class="error" id="error-token"></div>
+  </div>
+
+  <!-- STEP 2: Conta + Campanha + Período -->
+  <div class="card disabled" id="section-campaigns">
+    <div class="card-title"><span class="step-num">2</span> Selecionar dados</div>
+    <div style="margin-bottom:12px">
+      <label>Conta de anúncios</label>
+      <select id="account-select" onchange="loadCampaigns()">
+        <option value="">— selecione a conta —</option>
+      </select>
+      <div class="error" id="error-account"></div>
+    </div>
+    <div class="grid2" style="margin-bottom:16px">
+      <div>
+        <label>Campanha</label>
+        <select id="campaign-select">
+          <option value="">Todas as campanhas</option>
+        </select>
+      </div>
+      <div>
+        <label>Período</label>
+        <select id="period-select">
+          <option value="7">Últimos 7 dias</option>
+          <option value="14">Últimos 14 dias</option>
+          <option value="30">Últimos 30 dias</option>
+          <option value="this_month">Este mês</option>
+          <option value="last_month">Mês passado</option>
+        </select>
+      </div>
+    </div>
+    <button class="primary" onclick="loadMetrics()" id="btn-metrics">
+      Buscar métricas
+    </button>
+    <div class="error" id="error-metrics"></div>
+  </div>
+
+  <!-- STEP 3: Métricas -->
+  <div class="card" id="section-metrics">
+    <div class="card-title"><span class="step-num">3</span> Resultados <span id="metrics-period-label" style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:12px;margin-left:4px"></span></div>
+    <div class="grid4" id="metrics-grid"></div>
+  </div>
+
+  <!-- STEP 4: WhatsApp -->
+  <div class="card" id="section-whatsapp">
+    <div class="card-title"><span class="step-num">4</span> Mensagem para WhatsApp</div>
+    <div class="whats-box" id="whats-text"></div>
+    <div class="btn-row">
+      <button onclick="copyMsg()" id="btn-copy">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar mensagem
+      </button>
+      <button class="green" onclick="openWhatsApp()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.849L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.001-1.368l-.36-.214-3.733.979.994-3.639-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
+        Abrir WhatsApp
+      </button>
+    </div>
+  </div>
+
+</div>
+<script>
+let TOKEN = '';
+let accountName = '';
+let campaignName = '';
+let metricsData = {};
+
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = msg ? 'block' : 'none';
+}
+
+function unlock(id) {
+  document.getElementById(id).classList.remove('disabled');
+  document.getElementById(id).style.display = 'block';
+}
+
+async function loadAccounts() {
+  TOKEN = document.getElementById('token-input').value.trim();
+  if (!TOKEN) { showError('error-token', 'Cole o access token antes de continuar.'); return; }
+  showError('error-token', '');
+
+  const btn = document.getElementById('btn-connect');
+  btn.innerHTML = '<span class="spinner"></span> Conectando...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(`https://graph.facebook.com/v19.0/me/adaccounts?fields=name,account_id&limit=50&access_token=${TOKEN}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+
+    const sel = document.getElementById('account-select');
+    sel.innerHTML = '<option value="">— selecione a conta —</option>';
+    (data.data || []).forEach(acc => {
+      const opt = document.createElement('option');
+      opt.value = acc.id;
+      opt.textContent = acc.name;
+      opt.dataset.name = acc.name;
+      sel.appendChild(opt);
+    });
+
+    unlock('section-campaigns');
+    btn.innerHTML = '✓ Conectado';
+    btn.style.background = '#1a7a4a';
+    btn.style.borderColor = '#1a7a4a';
+  } catch(e) {
+    showError('error-token', 'Erro: ' + e.message);
+    btn.innerHTML = 'Conectar';
+    btn.disabled = false;
+  }
+}
+
+async function loadCampaigns() {
+  const sel = document.getElementById('account-select');
+  const accId = sel.value;
+  accountName = sel.options[sel.selectedIndex]?.dataset.name || sel.options[sel.selectedIndex]?.textContent || '';
+  if (!accId) return;
+  showError('error-account', '');
+
+  try {
+    const res = await fetch(`https://graph.facebook.com/v19.0/${accId}/campaigns?fields=name&limit=100&access_token=${TOKEN}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+
+    const cs = document.getElementById('campaign-select');
+    cs.innerHTML = '<option value="">Todas as campanhas</option>';
+    (data.data || []).forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = c.name;
+      opt.dataset.name = c.name;
+      cs.appendChild(opt);
+    });
+  } catch(e) {
+    showError('error-account', 'Erro ao carregar campanhas: ' + e.message);
+  }
+}
+
+function getDateRange(period) {
+  const today = new Date();
+  const fmt = d => d.toISOString().split('T')[0];
+  if (period === 'this_month') {
+    return { since: fmt(new Date(today.getFullYear(), today.getMonth(), 1)), until: fmt(today), label: 'Este mês' };
+  }
+  if (period === 'last_month') {
+    const first = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const last = new Date(today.getFullYear(), today.getMonth(), 0);
+    return { since: fmt(first), until: fmt(last), label: 'Mês passado' };
+  }
+  const since = new Date(today);
+  since.setDate(today.getDate() - parseInt(period));
+  return { since: fmt(since), until: fmt(today), label: `Últimos ${period} dias` };
+}
+
+async function loadMetrics() {
+  const accId = document.getElementById('account-select').value;
+  if (!accId) { showError('error-metrics', 'Selecione uma conta primeiro.'); return; }
+
+  const csSel = document.getElementById('campaign-select');
+  const campaignId = csSel.value;
+  campaignName = csSel.options[csSel.selectedIndex]?.textContent || 'Todas as campanhas';
+
+  const period = document.getElementById('period-select').value;
+  const { since, until, label } = getDateRange(period);
+  const dateRange = JSON.stringify({ since, until });
+
+  showError('error-metrics', '');
+  const btn = document.getElementById('btn-metrics');
+  btn.innerHTML = '<span class="spinner"></span> Buscando...';
+  btn.disabled = true;
+
+  try {
+    const target = campaignId
+      ? `https://graph.facebook.com/v19.0/${campaignId}/insights`
+      : `https://graph.facebook.com/v19.0/${accId}/insights`;
+
+    const fields = 'impressions,clicks,spend,cpm,cpc,ctr,reach,actions';
+    const res = await fetch(`${target}?fields=${fields}&time_range=${encodeURIComponent(dateRange)}&access_token=${TOKEN}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+
+    const d = data.data?.[0];
+    if (!d) {
+      showError('error-metrics', 'Sem dados para o período selecionado.');
+      btn.innerHTML = 'Buscar métricas';
+      btn.disabled = false;
+      return;
+    }
+
+    const conversions = (d.actions || []).find(a => a.action_type === 'offsite_conversion.fb_pixel_purchase')?.value
+      || (d.actions || []).find(a => a.action_type === 'purchase')?.value
+      || (d.actions || []).find(a => a.action_type === 'lead')?.value
+      || null;
+
+    metricsData = {
+      impressoes: parseInt(d.impressions || 0).toLocaleString('pt-BR'),
+      alcance: parseInt(d.reach || 0).toLocaleString('pt-BR'),
+      cliques: parseInt(d.clicks || 0).toLocaleString('pt-BR'),
+      gasto: parseFloat(d.spend || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+      cpm: parseFloat(d.cpm || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+      cpc: parseFloat(d.cpc || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+      ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
+      conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
+      label, since, until
+    };
+
+    renderMetrics();
+    renderWhatsapp();
+    btn.innerHTML = 'Buscar métricas';
+    btn.disabled = false;
+  } catch(e) {
+    showError('error-metrics', 'Erro: ' + e.message);
+    btn.innerHTML = 'Buscar métricas';
+    btn.disabled = false;
+  }
+}
+
+function renderMetrics() {
+  document.getElementById('metrics-period-label').textContent = `· ${metricsData.label}`;
+  const cards = [
+    { label: 'Impressões', value: metricsData.impressoes },
+    { label: 'Alcance', value: metricsData.alcance },
+    { label: 'Cliques', value: metricsData.cliques },
+    { label: 'CTR', value: metricsData.ctr },
+    { label: 'Gasto total', value: metricsData.gasto },
+    { label: 'CPM', value: metricsData.cpm },
+    { label: 'CPC', value: metricsData.cpc },
+  ];
+  if (metricsData.conversoes) cards.push({ label: 'Conversões', value: metricsData.conversoes });
+
+  document.getElementById('metrics-grid').innerHTML = cards.map(c =>
+    `<div class="metric"><div class="metric-label">${c.label}</div><div class="metric-value">${c.value}</div></div>`
+  ).join('');
+
+  unlock('section-metrics');
+}
+
+function renderWhatsapp() {
+  const m = metricsData;
+  const conv = m.conversoes ? `\n🎯 Conversões: ${m.conversoes}` : '';
+  const msg =
+`📊 *Relatório de Anúncios*
+📅 ${m.label} (${m.since} → ${m.until})
+📣 Campanha: ${campaignName}
+🏢 Conta: ${accountName}
+
+👁️ Impressões: ${m.impressoes}
+👥 Alcance: ${m.alcance}
+🖱️ Cliques: ${m.cliques}
+📈 CTR: ${m.ctr}
+💰 Gasto total: ${m.gasto}
+📌 CPM: ${m.cpm}
+🔗 CPC: ${m.cpc}${conv}
+
+_Relatório gerado automaticamente._`;
+
+  document.getElementById('whats-text').textContent = msg;
+  unlock('section-whatsapp');
+}
+
+function copyMsg() {
+  const txt = document.getElementById('whats-text').textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.getElementById('btn-copy');
+    btn.innerHTML = '✓ Copiado!';
+    setTimeout(() => btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar mensagem`, 2000);
+  });
+}
+
+function openWhatsApp() {
+  const txt = encodeURIComponent(document.getElementById('whats-text').textContent);
+  window.open('https://wa.me/?text=' + txt, '_blank');
+}
+</script>
+</body>
+</html>
