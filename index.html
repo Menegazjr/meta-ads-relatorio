@@ -271,23 +271,29 @@
         </select>
         <div class="error" id="error-account"></div>
       </div>
-      <div class="grid2" style="margin-bottom:16px">
+      <div class="grid2" style="margin-bottom:12px">
         <div>
           <label>Campanha</label>
-          <select id="campaign-select">
+          <select id="campaign-select" onchange="loadAdsets()">
             <option value="">Todas as campanhas</option>
           </select>
         </div>
         <div>
-          <label>Período</label>
-          <select id="period-select">
-            <option value="7">Últimos 7 dias</option>
-            <option value="14">Últimos 14 dias</option>
-            <option value="30">Últimos 30 dias</option>
-            <option value="this_month">Este mês</option>
-            <option value="last_month">Mês passado</option>
+          <label>Conjunto de anúncios</label>
+          <select id="adset-select">
+            <option value="">Todos os conjuntos</option>
           </select>
         </div>
+      </div>
+      <div style="margin-bottom:16px">
+        <label>Período</label>
+        <select id="period-select">
+          <option value="7">Últimos 7 dias</option>
+          <option value="14">Últimos 14 dias</option>
+          <option value="30">Últimos 30 dias</option>
+          <option value="this_month">Este mês</option>
+          <option value="last_month">Mês passado</option>
+        </select>
       </div>
       <button class="primary" onclick="loadMetrics()" id="btn-metrics">Buscar métricas</button>
       <div class="error" id="error-metrics"></div>
@@ -346,6 +352,7 @@
 let TOKEN = '';
 let accountName = '';
 let campaignName = '';
+let adsetName = '';
 let metricsData = {};
 
 function showError(id, msg) {
@@ -420,6 +427,9 @@ async function loadCampaigns() {
   if (!accId) return;
   showError('error-account', '');
 
+  // reset adsets
+  document.getElementById('adset-select').innerHTML = '<option value="">Todos os conjuntos</option>';
+
   try {
     const res = await fetch(`https://graph.facebook.com/v19.0/${accId}/campaigns?fields=name&limit=100&access_token=${TOKEN}`);
     const data = await res.json();
@@ -436,6 +446,38 @@ async function loadCampaigns() {
     });
   } catch(e) {
     showError('error-account', 'Erro ao carregar campanhas: ' + e.message);
+  }
+}
+
+async function loadAdsets() {
+  const csSel = document.getElementById('campaign-select');
+  const campaignId = csSel.value;
+  const accId = document.getElementById('account-select').value;
+
+  const adsetSel = document.getElementById('adset-select');
+  adsetSel.innerHTML = '<option value="">Todos os conjuntos</option>';
+
+  const parentId = campaignId || accId;
+  const endpoint = campaignId
+    ? `https://graph.facebook.com/v19.0/${campaignId}/adsets?fields=name&limit=100&access_token=${TOKEN}`
+    : `https://graph.facebook.com/v19.0/${accId}/adsets?fields=name&limit=100&access_token=${TOKEN}`;
+
+  if (!parentId) return;
+
+  try {
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+
+    (data.data || []).forEach(a => {
+      const opt = document.createElement('option');
+      opt.value = a.id;
+      opt.textContent = a.name;
+      opt.dataset.name = a.name;
+      adsetSel.appendChild(opt);
+    });
+  } catch(e) {
+    // silently fail — adsets are optional
   }
 }
 
@@ -463,6 +505,10 @@ async function loadMetrics() {
   const campaignId = csSel.value;
   campaignName = csSel.options[csSel.selectedIndex]?.textContent || 'Todas as campanhas';
 
+  const adsetSel = document.getElementById('adset-select');
+  const adsetId = adsetSel.value;
+  adsetName = adsetId ? adsetSel.options[adsetSel.selectedIndex]?.textContent : '';
+
   const period = document.getElementById('period-select').value;
   const { since, until, label } = getDateRange(period);
   const dateRange = JSON.stringify({ since, until });
@@ -473,11 +519,13 @@ async function loadMetrics() {
   btn.disabled = true;
 
   try {
-    const target = campaignId
-      ? `https://graph.facebook.com/v19.0/${campaignId}/insights`
-      : `https://graph.facebook.com/v19.0/${accId}/insights`;
+    const target = adsetId
+      ? `https://graph.facebook.com/v19.0/${adsetId}/insights`
+      : campaignId
+        ? `https://graph.facebook.com/v19.0/${campaignId}/insights`
+        : `https://graph.facebook.com/v19.0/${accId}/insights`;
 
-    const fields = 'impressions,clicks,spend,cpm,cpc,ctr,reach,actions';
+    const fields = 'impressions,clicks,spend,cpm,cpc,ctr,reach,frequency,actions';
     const res = await fetch(`${target}?fields=${fields}&time_range=${encodeURIComponent(dateRange)}&access_token=${TOKEN}`);
     const data = await res.json();
     if (data.error) throw new Error(data.error.message);
@@ -503,6 +551,7 @@ async function loadMetrics() {
       cpm: parseFloat(d.cpm || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
       cpc: parseFloat(d.cpc || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
       ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
+      frequencia: parseFloat(d.frequency || 0).toFixed(2),
       conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
       label, since, until
     };
@@ -525,6 +574,7 @@ function renderMetrics() {
     { label: 'Alcance', value: metricsData.alcance },
     { label: 'Cliques', value: metricsData.cliques },
     { label: 'CTR', value: metricsData.ctr },
+    { label: 'Frequência', value: metricsData.frequencia + 'x' },
     { label: 'Gasto total', value: metricsData.gasto },
     { label: 'CPM', value: metricsData.cpm },
     { label: 'CPC', value: metricsData.cpc },
@@ -540,22 +590,20 @@ function renderMetrics() {
 
 function renderWhatsapp() {
   const m = metricsData;
-  const conv = m.conversoes ? `\n🎯 Conversões: ${m.conversoes}` : '';
+  const conv = m.conversoes ? `\n🎯 Conversões (ações geradas pelo anúncio): ${m.conversoes}` : '';
   const msg =
 `📊 *Relatório de Anúncios*
 📅 ${m.label} (${m.since} → ${m.until})
 📣 Campanha: ${campaignName}
 🏢 Conta: ${accountName}
 
-👁️ Impressões: ${m.impressoes}
-👥 Alcance: ${m.alcance}
-🖱️ Cliques: ${m.cliques}
-📈 CTR: ${m.ctr}
-💰 Gasto total: ${m.gasto}
-📌 CPM: ${m.cpm}
-🔗 CPC: ${m.cpc}${conv}
-
-_Relatório gerado automaticamente._`;
+👁️ Impressões (quantas vezes o anúncio foi exibido): ${m.impressoes}
+👥 Alcance (pessoas únicas que viram o anúncio): ${m.alcance}
+🖱️ Cliques (acessos ao site ou link do anúncio): ${m.cliques}
+📈 CTR — Taxa de cliques (% que clicou após ver o anúncio): ${m.ctr}
+💰 Investimento total: ${m.gasto}
+📌 CPM — Custo por mil impressões (quanto custa exibir o anúncio 1.000 vezes): ${m.cpm}
+🔗 CPC — Custo por clique (quanto custou cada acesso ao link): ${m.cpc}${conv}`;
 
   document.getElementById('whats-text').textContent = msg;
   show('section-whatsapp');
