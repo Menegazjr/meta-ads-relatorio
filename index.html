@@ -590,22 +590,36 @@ function renderMetrics() {
 
 function renderWhatsapp() {
   const m = metricsData;
-  const conv = m.conversoes ? `\n🎯 Conversões (ações geradas pelo anúncio): ${m.conversoes}` : '';
+  const conv = m.conversoes ? `\n🎯 Conversões: ${m.conversoes}` : '';
   const adsetLine = adsetName ? `\n📂 Conjunto: ${adsetName}` : '';
+
+  const since = m.since.split('-').reverse().join('/');
+  const until = m.until.split('-').reverse().join('/');
+
   const msg =
 `📊 *Relatório de Anúncios*
-📅 ${m.label} (${m.since} → ${m.until})
+📅 ${m.label} (${since} → ${until})
 🏢 Conta: ${accountName}
 📣 Campanha: ${campaignName}${adsetLine}
 
-👁️ Impressões (quantas vezes o anúncio foi exibido): ${m.impressoes}
-👥 Alcance (pessoas únicas que viram o anúncio): ${m.alcance}
-🔁 Frequência (média de vezes que cada pessoa viu o anúncio): ${m.frequencia}x
-🖱️ Cliques (acessos ao site ou link do anúncio): ${m.cliques}
-📈 CTR — Taxa de cliques (% que clicou após ver o anúncio): ${m.ctr}
-💰 Investimento total: ${m.gasto}
-📌 CPM — Custo por mil impressões (quanto custa exibir o anúncio 1.000 vezes): ${m.cpm}
-🔗 CPC — Custo por clique (quanto custou cada acesso ao link): ${m.cpc}${conv}`;
+👁️ Impressões: ${m.impressoes}
+👥 Alcance: ${m.alcance}
+🔁 Frequência: ${m.frequencia}x
+🖱️ Cliques: ${m.cliques}
+📈 CTR: ${m.ctr}
+💰 Investimento: ${m.gasto}
+📌 CPM: ${m.cpm}
+🔗 CPC: ${m.cpc}${conv}
+
+*O que significa cada métrica?*
+• Impressões: quantas vezes o anúncio foi exibido
+• Alcance: pessoas únicas que viram o anúncio
+• Frequência: média de vezes que cada pessoa viu
+• Cliques: acessos ao site ou link do anúncio
+• CTR: % de pessoas que clicaram após ver
+• Investimento: total gasto no período
+• CPM: custo para exibir o anúncio 1.000 vezes
+• CPC: custo médio por clique`;
 
   document.getElementById('whats-text').textContent = msg;
   show('section-whatsapp');
