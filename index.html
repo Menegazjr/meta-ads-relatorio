@@ -551,7 +551,7 @@ async function loadMetrics() {
       cpm: parseFloat(d.cpm || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
       cpc: parseFloat(d.cpc || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
       ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
-      frequencia: parseFloat(d.frequency || 0).toFixed(2),
+      frequencia: parseFloat(d.frequency || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
       label, since, until
     };
@@ -591,14 +591,16 @@ function renderMetrics() {
 function renderWhatsapp() {
   const m = metricsData;
   const conv = m.conversoes ? `\n🎯 Conversões (ações geradas pelo anúncio): ${m.conversoes}` : '';
+  const adsetLine = adsetName ? `\n📂 Conjunto: ${adsetName}` : '';
   const msg =
 `📊 *Relatório de Anúncios*
 📅 ${m.label} (${m.since} → ${m.until})
-📣 Campanha: ${campaignName}
 🏢 Conta: ${accountName}
+📣 Campanha: ${campaignName}${adsetLine}
 
 👁️ Impressões (quantas vezes o anúncio foi exibido): ${m.impressoes}
 👥 Alcance (pessoas únicas que viram o anúncio): ${m.alcance}
+🔁 Frequência (média de vezes que cada pessoa viu o anúncio): ${m.frequencia}x
 🖱️ Cliques (acessos ao site ou link do anúncio): ${m.cliques}
 📈 CTR — Taxa de cliques (% que clicou após ver o anúncio): ${m.ctr}
 💰 Investimento total: ${m.gasto}
