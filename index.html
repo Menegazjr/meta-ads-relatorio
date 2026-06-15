@@ -267,7 +267,7 @@
   </div>
 
   <!-- TELA DO APP -->
-  <div id="screen-app">
+  <div id="screen-app" style="display:none">
 
     <div class="user-bar" id="user-bar">
       <span id="user-info">Carregando...</span>
@@ -275,7 +275,7 @@
     </div>
 
     <!-- Conta + Campanha + Período -->
-    <div class="card" id="section-campaigns">
+    <div class="card" id="section-campaigns" style="display:none">
       <div class="card-title"><span class="step-num">1</span> Selecionar dados</div>
       <div style="margin-bottom:12px">
         <label>Conta de anúncios</label>
@@ -313,13 +313,13 @@
     </div>
 
     <!-- Métricas -->
-    <div class="card" id="section-metrics">
+    <div class="card" id="section-metrics" style="display:none">
       <div class="card-title"><span class="step-num">2</span> Resultados <span id="metrics-period-label" style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:12px;margin-left:4px"></span></div>
       <div class="grid4" id="metrics-grid"></div>
     </div>
 
     <!-- Análise IA -->
-    <div class="card" id="section-analysis">
+    <div class="card" id="section-analysis" style="display:none">
       <div class="card-title"><span class="step-num">3</span> Análise rápida
         <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:11px;margin-left:4px">gerada por IA — apenas para você</span>
       </div>
@@ -327,7 +327,7 @@
     </div>
 
     <!-- WhatsApp -->
-    <div class="card" id="section-whatsapp">
+    <div class="card" id="section-whatsapp" style="display:none">
       <div class="card-title"><span class="step-num">4</span> Mensagem para WhatsApp</div>
       <div class="whats-box" id="whats-text"></div>
       <div class="btn-row">
@@ -651,7 +651,55 @@ function renderWhatsapp() {
   show('section-whatsapp');
 }
 
-function copyMsg() {
+async function analyzeMetrics() {
+  const m = metricsData;
+  const el = document.getElementById('analysis-content');
+  show('section-analysis');
+  el.innerHTML = `<div class="analysis-loading"><span class="spinner dark"></span> Analisando métricas...</div>`;
+
+  const prompt = `Você é um especialista em tráfego pago no Meta Ads. Analise as métricas abaixo e gere um diagnóstico rápido e objetivo para o gestor de tráfego.
+
+Métricas da campanha "${campaignName}" — ${m.label}:
+- Impressões: ${m.impressoes}
+- Alcance: ${m.alcance}
+- Frequência: ${m.frequencia}x
+- Cliques: ${m.cliques}
+- CTR: ${m.ctr}
+- Investimento: ${m.gasto}
+- CPM: ${m.cpm}
+- CPC: ${m.cpc}
+${m.conversoes ? `- Conversões: ${m.conversoes}` : ''}
+
+Gere entre 3 e 5 pontos curtos. Cada ponto deve começar com um emoji indicando status:
+✅ para bom, ⚠️ para atenção, 🔴 para problema.
+Seja direto, prático e em português brasileiro. Sem introdução, sem conclusão, apenas os pontos.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await res.json();
+    const text = data.content?.[0]?.text || 'Não foi possível gerar a análise.';
+
+    const html = text.split('\n')
+      .filter(l => l.trim())
+      .map(l => `<p>${l.trim()}</p>`)
+      .join('');
+
+    el.innerHTML = `<div class="analysis-box">${html}</div>`;
+  } catch(e) {
+    el.innerHTML = `<div class="analysis-box" style="color:var(--muted)">Não foi possível gerar a análise.</div>`;
+  }
+}
+
+
   const txt = document.getElementById('whats-text').textContent;
   navigator.clipboard.writeText(txt).then(() => {
     const btn = document.getElementById('btn-copy');
