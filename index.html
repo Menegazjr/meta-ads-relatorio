@@ -223,9 +223,22 @@
   }
   .user-bar a:hover { text-decoration: underline; }
 
-  #screen-login { display: block; }
-  #screen-app { display: none; }
-  #section-campaigns, #section-metrics, #section-whatsapp { display: none; }
+  .analysis-box {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-top: 0.5rem;
+  }
+  .analysis-box p { margin-bottom: 6px; }
+  .analysis-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 8px 0;
+  }
+  .spinner.dark { border-color: rgba(0,0,0,0.12); border-top-color: var(--accent); }
 </style>
 </head>
 <body>
@@ -305,9 +318,17 @@
       <div class="grid4" id="metrics-grid"></div>
     </div>
 
+    <!-- Análise IA -->
+    <div class="card" id="section-analysis">
+      <div class="card-title"><span class="step-num">3</span> Análise rápida
+        <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:11px;margin-left:4px">gerada por IA — apenas para você</span>
+      </div>
+      <div id="analysis-content"></div>
+    </div>
+
     <!-- WhatsApp -->
     <div class="card" id="section-whatsapp">
-      <div class="card-title"><span class="step-num">3</span> Mensagem para WhatsApp</div>
+      <div class="card-title"><span class="step-num">4</span> Mensagem para WhatsApp</div>
       <div class="whats-box" id="whats-text"></div>
       <div class="btn-row">
         <button onclick="copyMsg()" id="btn-copy">
@@ -561,6 +582,7 @@ async function loadMetrics() {
 
     renderMetrics();
     renderWhatsapp();
+    analyzeMetrics();
     btn.innerHTML = 'Buscar métricas';
     btn.disabled = false;
   } catch(e) {
