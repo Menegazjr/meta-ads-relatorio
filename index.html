@@ -485,13 +485,20 @@ function analyzeMetrics() {
 
 'Analise SOMENTE os dados fornecidos.\n' +
 'Não invente informações.\n' +
-'Não assuma que a campanha está ruim sem evidências.\n' +
+'Não faça suposições sobre o objetivo da campanha.\n' +
+'Não assuma que a campanha é de leads, vendas ou mensagens.\n' +
 'Não afirme que existe saturação se a frequência for menor que 3.\n' +
-'Considere CTR acima de 2% como positivo.\n' +
 'Considere frequência abaixo de 2 como saudável.\n' +
+'Considere frequência entre 2 e 3 como atenção moderada.\n' +
+'Considere frequência acima de 4 como possível saturação.\n' +
+'Considere CTR acima de 2% como BOM.\n' +
+'Considere CTR acima de 3% como EXCELENTE.\n' +
+'Não classifique CTR acima de 2% como problema.\n' +
+'Considere CPC baixo como um ponto positivo.\n' +
 'Considere mensagens iniciadas como um resultado positivo.\n' +
-'Considere conversões como resultado positivo.\n' +
-'Identifique gargalos apenas quando os números justificarem.\n\n' +
+'Considere conversões como um resultado positivo.\n' +
+'Somente classifique algo como problema crítico quando houver evidência clara nos números.\n' +
+'Se faltarem dados para uma conclusão, informe que não há dados suficientes.\n\n' +
 
 'Campanha: ' + campaignName + '\n' +
 'Período: ' + m.label + '\n' +
@@ -503,8 +510,8 @@ function analyzeMetrics() {
 'Investimento: ' + m.gasto + '\n' +
 'CPM: ' + m.cpm + '\n' +
 'CPC: ' + m.cpc + '\n' +
-(m.conversoes ? 'Conversões: ' + m.conversoes + '\n' : 'Conversões: não registradas\n') +
-(m.mensagens ? 'Mensagens iniciadas: ' + m.mensagens + '\n' : '') +
+(m.conversoes ? 'Conversões: ' + m.conversoes + '\n' : 'Conversões: não informadas\n') +
+(m.mensagens ? 'Mensagens iniciadas: ' + m.mensagens + '\n' : 'Mensagens iniciadas: não informadas\n') +
 
 '\nRetorne exatamente neste formato:\n\n' +
 
@@ -512,10 +519,14 @@ function analyzeMetrics() {
 '⚠️ Pontos de atenção\n' +
 '🔴 Problemas críticos\n\n' +
 
-'Máximo 5 tópicos.\n' +
-'Sem introdução.\n' +
-'Sem conclusão.\n' +
-'Direto ao ponto.';
+'Regras finais:\n' +
+'- Máximo 5 tópicos.\n' +
+'- Sem introdução.\n' +
+'- Sem conclusão.\n' +
+'- Direto ao ponto.\n' +
+'- Não repita métricas.\n' +
+'- Não invente objetivos da campanha.\n' +
+'- Não invente problemas sem evidência.';
   
   fetch('https://meta-ads-ai.menegazjr.workers.dev', {
     method: 'POST',
