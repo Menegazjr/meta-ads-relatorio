@@ -377,6 +377,14 @@ function loadMetrics() {
         if (found) { conversions = found.value; break; }
       }
 
+      var mensagens = null;
+      var msgAction = actions.find(function(a) {
+        return a.action_type === 'onsite_conversion.messaging_conversation_started_7d'
+          || a.action_type === 'onsite_conversion.messaging_first_reply'
+          || a.action_type === 'messaging_conversation_started_7d';
+      });
+      if (msgAction) { mensagens = parseInt(msgAction.value).toLocaleString('pt-BR'); }
+
       metricsData = {
         impressoes: parseInt(d.impressions || 0).toLocaleString('pt-BR'),
         alcance: parseInt(d.reach || 0).toLocaleString('pt-BR'),
@@ -387,6 +395,7 @@ function loadMetrics() {
         ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
         frequencia: parseFloat(d.frequency || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
         conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
+        mensagens: mensagens,
         label: range.label,
         since: range.since,
         until: range.until
@@ -418,6 +427,7 @@ function renderMetrics() {
     { label: 'CPC', value: metricsData.cpc }
   ];
   if (metricsData.conversoes) { cards.push({ label: 'Conversões', value: metricsData.conversoes }); }
+  if (metricsData.mensagens) { cards.push({ label: 'Mensagens iniciadas', value: metricsData.mensagens }); }
 
   document.getElementById('metrics-grid').innerHTML = cards.map(function(c) {
     return '<div class="metric"><div class="metric-label">' + c.label + '</div><div class="metric-value">' + c.value + '</div></div>';
@@ -429,6 +439,7 @@ function renderMetrics() {
 function renderWhatsapp() {
   var m = metricsData;
   var conv = m.conversoes ? '\n🎯 Conversões: ' + m.conversoes : '';
+  var msgs = m.mensagens ? '\n💬 Mensagens iniciadas: ' + m.mensagens : '';
   var adsetLine = adsetName ? '\n📂 Conjunto: ' + adsetName : '';
   var since = m.since.split('-').reverse().join('/');
   var until = m.until.split('-').reverse().join('/');
@@ -446,7 +457,7 @@ function renderWhatsapp() {
     + '💰 Investimento: ' + m.gasto + '\n'
     + '📌 CPM: ' + m.cpm + '\n'
     + '🔗 CPC: ' + m.cpc
-    + conv + '\n'
+    + conv + msgs + '\n'
     + '\n'
     + '*O que significa cada métrica?*\n'
     + '• Impressões: quantas vezes o anúncio foi exibido\n'
@@ -467,58 +478,39 @@ function analyzeMetrics() {
   var m = metricsData;
   var el = document.getElementById('analysis-content');
   show('section-analysis');
+  el.innerHTML = '<div class="analysis-loading"><span class="spinner"></span> Analisando métricas com IA...</div>';
 
-  var pontos = [];
+  var prompt = 'Você é um especialista em tráfego pago no Meta Ads. Analise as métricas abaixo e gere um diagnóstico rápido e objetivo para o gestor de tráfego.\n\n'
+    + 'Campanha: ' + campaignName + '\n'
+    + 'Período: ' + m.label + '\n'
+    + 'Impressões: ' + m.impressoes + '\n'
+    + 'Alcance: ' + m.alcance + '\n'
+    + 'Frequência: ' + m.frequencia + 'x\n'
+    + 'Cliques: ' + m.cliques + '\n'
+    + 'CTR: ' + m.ctr + '\n'
+    + 'Investimento: ' + m.gasto + '\n'
+    + 'CPM: ' + m.cpm + '\n'
+    + 'CPC: ' + m.cpc + '\n'
+    + (m.conversoes ? 'Conversões: ' + m.conversoes + '\n' : 'Conversões: não registradas\n')
+    + (m.mensagens ? 'Mensagens iniciadas: ' + m.mensagens + '\n' : '')
+    + '\nGere entre 3 e 5 pontos curtos e diretos. Cada ponto deve começar com um emoji: ✅ para bom, ⚠️ para atenção, 🔴 para problema. Escreva em português brasileiro. Sem introdução, sem conclusão, apenas os pontos.';
 
-  // CTR
-  var ctr = parseFloat(m.ctr);
-  if (ctr >= 2) {
-    pontos.push('✅ CTR de ' + m.ctr + ' — anúncio com boa relevância, as pessoas estão clicando.');
-  } else if (ctr >= 1) {
-    pontos.push('⚠️ CTR de ' + m.ctr + ' — dentro do aceitável, mas há espaço para melhorar o criativo ou a copy.');
-  } else {
-    pontos.push('🔴 CTR de ' + m.ctr + ' — abaixo do esperado. Considere testar novos criativos ou segmentações.');
-  }
-
-  // Frequência
-  var freq = parseFloat(m.frequencia.replace(',', '.'));
-  if (freq <= 2) {
-    pontos.push('✅ Frequência de ' + m.frequencia + 'x — público ainda fresco, sem sinais de saturação.');
-  } else if (freq <= 3.5) {
-    pontos.push('⚠️ Frequência de ' + m.frequencia + 'x — público começando a saturar. Fique de olho e considere renovar o criativo em breve.');
-  } else {
-    pontos.push('🔴 Frequência de ' + m.frequencia + 'x — público saturado. Troque o criativo ou expanda a segmentação.');
-  }
-
-  // CPM
-  var cpm = parseFloat(m.cpm.replace(/[R$\s.]/g, '').replace(',', '.'));
-  if (cpm <= 15) {
-    pontos.push('✅ CPM de ' + m.cpm + ' — custo de exibição baixo, boa eficiência na entrega.');
-  } else if (cpm <= 35) {
-    pontos.push('⚠️ CPM de ' + m.cpm + ' — custo de exibição moderado, dentro da média do mercado.');
-  } else {
-    pontos.push('🔴 CPM de ' + m.cpm + ' — custo de exibição alto. Pode indicar público muito disputado ou segmentação restrita.');
-  }
-
-  // CPC
-  var cpc = parseFloat(m.cpc.replace(/[R$\s.]/g, '').replace(',', '.'));
-  if (cpc <= 1) {
-    pontos.push('✅ CPC de ' + m.cpc + ' — custo por clique excelente.');
-  } else if (cpc <= 3) {
-    pontos.push('⚠️ CPC de ' + m.cpc + ' — custo por clique aceitável, mas vale testar variações para reduzir.');
-  } else {
-    pontos.push('🔴 CPC de ' + m.cpc + ' — custo por clique elevado. Revise a segmentação ou o criativo para melhorar a eficiência.');
-  }
-
-  // Conversões
-  if (m.conversoes) {
-    pontos.push('✅ ' + m.conversoes + ' conversões registradas no período — pixel está ativo e registrando resultados.');
-  } else {
-    pontos.push('⚠️ Nenhuma conversão registrada. Verifique se o pixel está configurado corretamente.');
-  }
-
-  var html = pontos.map(function(p) { return '<p>' + p + '</p>'; }).join('');
-  el.innerHTML = '<div class="analysis-box">' + html + '</div>';
+  fetch('https://meta-ads-ai.menegazjr.workers.dev', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.text || 'Não foi possível gerar a análise.';
+    var html = text.split('\n').filter(function(l) { return l.trim(); }).map(function(l) {
+      return '<p>' + l.trim() + '</p>';
+    }).join('');
+    el.innerHTML = '<div class="analysis-box">' + html + '</div>';
+  })
+  .catch(function() {
+    el.innerHTML = '<div class="analysis-box" style="color:var(--muted)">Não foi possível conectar ao serviço de análise.</div>';
+  });
 }
 
 function copyMsg() {
