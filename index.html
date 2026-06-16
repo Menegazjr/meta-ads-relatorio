@@ -481,52 +481,32 @@ function analyzeMetrics() {
   el.innerHTML = '<div class="analysis-loading"><span class="spinner"></span> Analisando métricas com IA...</div>';
 
   var prompt =
-'Você é um gestor de tráfego especialista em Meta Ads.\n\n' +
+'Você é um analista de Meta Ads.\n\n' +
 
-'Analise SOMENTE os dados fornecidos.\n' +
-'Não invente informações.\n' +
-'Não faça suposições sobre o objetivo da campanha.\n' +
-'Não assuma que a campanha é de leads, vendas ou mensagens.\n' +
-'Não afirme que existe saturação se a frequência for menor que 3.\n' +
-'Considere frequência abaixo de 2 como saudável.\n' +
-'Considere frequência entre 2 e 3 como atenção moderada.\n' +
-'Considere frequência acima de 4 como possível saturação.\n' +
-'Considere CTR acima de 2% como BOM.\n' +
-'Considere CTR acima de 3% como EXCELENTE.\n' +
-'Não classifique CTR acima de 2% como problema.\n' +
-'Considere CPC baixo como um ponto positivo.\n' +
-'Considere mensagens iniciadas como um resultado positivo.\n' +
-'Considere conversões como um resultado positivo.\n' +
-'Somente classifique algo como problema crítico quando houver evidência clara nos números.\n' +
-'Se faltarem dados para uma conclusão, informe que não há dados suficientes.\n\n' +
+'Classificações obrigatórias:\n' +
+'- CTR abaixo de 1% = ruim\n' +
+'- CTR entre 1% e 2% = regular\n' +
+'- CTR acima de 2% = bom\n' +
+'- CTR acima de 3% = excelente\n' +
+'- Frequência abaixo de 2 = saudável\n' +
+'- Frequência entre 2 e 3 = atenção\n' +
+'- Frequência acima de 4 = possível saturação\n' +
+'- CPC abaixo de R$1,00 = excelente\n' +
+'- CPC entre R$1,00 e R$3,00 = bom\n' +
+'- CPC acima de R$3,00 = caro\n' +
+'- Mensagens iniciadas são resultado positivo\n' +
+'- Não trate ausência de conversões como problema crítico\n' +
+'- Não assuma objetivos da campanha\n' +
+'- Não invente métricas\n\n' +
 
-'Campanha: ' + campaignName + '\n' +
-'Período: ' + m.label + '\n' +
-'Impressões: ' + m.impressoes + '\n' +
-'Alcance: ' + m.alcance + '\n' +
-'Frequência: ' + m.frequencia + 'x\n' +
-'Cliques: ' + m.cliques + '\n' +
+'Dados:\n' +
 'CTR: ' + m.ctr + '\n' +
-'Investimento: ' + m.gasto + '\n' +
-'CPM: ' + m.cpm + '\n' +
+'Frequência: ' + m.frequencia + '\n' +
 'CPC: ' + m.cpc + '\n' +
-(m.conversoes ? 'Conversões: ' + m.conversoes + '\n' : 'Conversões: não informadas\n') +
-(m.mensagens ? 'Mensagens iniciadas: ' + m.mensagens + '\n' : 'Mensagens iniciadas: não informadas\n') +
+'Conversões: ' + (m.conversoes || 'não informadas') + '\n' +
+'Mensagens: ' + (m.mensagens || 'não informadas') + '\n\n' +
 
-'\nRetorne exatamente neste formato:\n\n' +
-
-'✅ Pontos positivos\n' +
-'⚠️ Pontos de atenção\n' +
-'🔴 Problemas críticos\n\n' +
-
-'Regras finais:\n' +
-'- Máximo 5 tópicos.\n' +
-'- Sem introdução.\n' +
-'- Sem conclusão.\n' +
-'- Direto ao ponto.\n' +
-'- Não repita métricas.\n' +
-'- Não invente objetivos da campanha.\n' +
-'- Não invente problemas sem evidência.';
+'Retorne exatamente 3 pontos positivos e no máximo 2 pontos de atenção.';
   
   fetch('https://meta-ads-ai.menegazjr.workers.dev', {
     method: 'POST',
