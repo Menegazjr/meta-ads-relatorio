@@ -6,239 +6,54 @@
 <title>Meta Ads — Relatório</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #f5f4f0;
-    --surface: #ffffff;
-    --border: #e2e0d8;
-    --text: #1a1917;
-    --muted: #6b6960;
-    --accent: #1877f2;
-    --accent-light: #e8f0fe;
-    --success: #1a7a4a;
-    --success-bg: #e6f4ed;
-    --danger: #c0392b;
-    --danger-bg: #fdf0ee;
-    --radius: 10px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --bg: #f5f4f0; --surface: #ffffff; --border: #e2e0d8;
+    --text: #1a1917; --muted: #6b6960; --accent: #1877f2;
+    --danger: #c0392b; --danger-bg: #fdf0ee;
+    --radius: 10px; --shadow: 0 1px 3px rgba(0,0,0,0.08);
   }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem; }
   .container { max-width: 680px; margin: 0 auto; }
-
-  header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 2rem;
-  }
-
-  .logo {
-    width: 40px; height: 40px;
-    background: var(--accent);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-  }
-
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+  .logo { width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
   .logo svg { width: 22px; height: 22px; fill: white; }
   header h1 { font-size: 18px; font-weight: 600; }
   header p { font-size: 13px; color: var(--muted); margin-top: 1px; }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: var(--shadow);
-  }
-
-  .card-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .step-num {
-    width: 20px; height: 20px;
-    background: var(--accent);
-    color: white;
-    border-radius: 50%;
-    font-size: 11px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+  .step-num { width: 20px; height: 20px; background: var(--accent); color: white; border-radius: 50%; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
   label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 5px; }
-
-  input, select {
-    width: 100%;
-    height: 40px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text);
-    background: var(--bg);
-    outline: none;
-    transition: border-color 0.15s;
-  }
-
+  input, select { width: 100%; height: 40px; border: 1px solid var(--border); border-radius: 8px; padding: 0 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.15s; }
   input:focus, select:focus { border-color: var(--accent); background: white; }
-
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 1rem; }
-
-  button {
-    height: 40px;
-    padding: 0 18px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-  }
-
+  button { height: 40px; padding: 0 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; white-space: nowrap; display: inline-flex; align-items: center; gap: 7px; }
   button:hover { background: var(--bg); border-color: #ccc; }
   button.primary { background: var(--accent); color: white; border-color: var(--accent); }
-  button.primary:hover { background: #1565d8; border-color: #1565d8; }
+  button.primary:hover { background: #1565d8; }
   button.green { background: #25d366; color: white; border-color: #25d366; }
   button.green:hover { background: #1ebe5a; }
   button:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .fb-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    height: 48px;
-    background: #1877f2;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s;
-    font-family: 'DM Sans', sans-serif;
-  }
+  .fb-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; background: #1877f2; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
   .fb-btn:hover { background: #1565d8; }
-  .fb-btn svg { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
-
-  .metric {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-  }
+  .fb-btn svg { width: 20px; height: 20px; fill: white; }
+  .metric { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
   .metric-label { font-size: 12px; color: var(--muted); margin-bottom: 5px; }
   .metric-value { font-size: 20px; font-weight: 600; }
-
-  .error {
-    font-size: 13px;
-    color: var(--danger);
-    background: var(--danger-bg);
-    border-radius: 6px;
-    padding: 8px 12px;
-    margin-top: 8px;
-    display: none;
-  }
-
-  .disabled { opacity: 0.45; pointer-events: none; }
-
-  .whats-box {
-    background: #e9fbe5;
-    border: 1px solid #c3edb8;
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
-    font-size: 14px;
-    line-height: 1.65;
-    white-space: pre-wrap;
-    color: #1a1917;
-    margin-bottom: 1rem;
-    font-family: 'DM Mono', monospace;
-  }
-
+  .error { font-size: 13px; color: var(--danger); background: var(--danger-bg); border-radius: 6px; padding: 8px 12px; margin-top: 8px; display: none; }
+  .whats-box { background: #e9fbe5; border: 1px solid #c3edb8; border-radius: 8px; padding: 1rem 1.25rem; font-size: 14px; line-height: 1.65; white-space: pre-wrap; color: #1a1917; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
   .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
-
-  .spinner {
-    width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: inline-block;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .user-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    margin-bottom: 1.25rem;
-    font-size: 13px;
-  }
-  .user-bar img {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    margin-right: 8px;
-    vertical-align: middle;
-  }
-  .user-bar a {
-    font-size: 12px;
-    color: var(--danger);
-    cursor: pointer;
-    text-decoration: none;
-  }
+  .user-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 1.25rem; font-size: 13px; }
+  .user-bar img { width: 28px; height: 28px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .user-bar a { font-size: 12px; color: var(--danger); cursor: pointer; text-decoration: none; }
   .user-bar a:hover { text-decoration: underline; }
-
-  .analysis-box {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--text);
-    margin-top: 0.5rem;
-  }
+  .analysis-box { font-size: 14px; line-height: 1.7; color: var(--text); margin-top: 0.5rem; }
   .analysis-box p { margin-bottom: 6px; }
-  .analysis-loading {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: var(--muted);
-    padding: 8px 0;
-  }
-  .spinner.dark { border-color: rgba(0,0,0,0.12); border-top-color: var(--accent); }
+  .analysis-loading { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); padding: 8px 0; }
+  .spinner { width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.12); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+  .spinner.white { border-color: rgba(255,255,255,0.3); border-top-color: white; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -254,11 +69,11 @@
     </div>
   </header>
 
-  <!-- TELA DE LOGIN -->
+  <!-- LOGIN -->
   <div id="screen-login">
     <div class="card" style="text-align:center; padding: 2rem 1.5rem;">
       <p style="font-size:14px; color:var(--muted); margin-bottom:1.5rem;">Entre com sua conta do Facebook para acessar as métricas das suas campanhas.</p>
-      <button class="fb-btn" onclick="fbLogin()">
+      <button class="fb-btn" id="btn-fb-login">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
         Entrar com Facebook
       </button>
@@ -266,20 +81,19 @@
     </div>
   </div>
 
-  <!-- TELA DO APP -->
+  <!-- APP -->
   <div id="screen-app" style="display:none">
 
-    <div class="user-bar" id="user-bar">
+    <div class="user-bar">
       <span id="user-info">Carregando...</span>
-      <a onclick="fbLogout()">Sair</a>
+      <a id="btn-logout">Sair</a>
     </div>
 
-    <!-- Conta + Campanha + Período -->
     <div class="card" id="section-campaigns" style="display:none">
       <div class="card-title"><span class="step-num">1</span> Selecionar dados</div>
       <div style="margin-bottom:12px">
         <label>Conta de anúncios</label>
-        <select id="account-select" onchange="loadCampaigns()">
+        <select id="account-select">
           <option value="">— selecione a conta —</option>
         </select>
         <div class="error" id="error-account"></div>
@@ -287,7 +101,7 @@
       <div class="grid2" style="margin-bottom:12px">
         <div>
           <label>Campanha</label>
-          <select id="campaign-select" onchange="loadAdsets()">
+          <select id="campaign-select">
             <option value="">Todas as campanhas</option>
           </select>
         </div>
@@ -308,34 +122,32 @@
           <option value="last_month">Mês passado</option>
         </select>
       </div>
-      <button class="primary" onclick="loadMetrics()" id="btn-metrics">Buscar métricas</button>
+      <button class="primary" id="btn-metrics">Buscar métricas</button>
       <div class="error" id="error-metrics"></div>
     </div>
 
-    <!-- Métricas -->
     <div class="card" id="section-metrics" style="display:none">
       <div class="card-title"><span class="step-num">2</span> Resultados <span id="metrics-period-label" style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:12px;margin-left:4px"></span></div>
       <div class="grid4" id="metrics-grid"></div>
     </div>
 
-    <!-- Análise IA -->
     <div class="card" id="section-analysis" style="display:none">
-      <div class="card-title"><span class="step-num">3</span> Análise rápida
+      <div class="card-title">
+        <span class="step-num">3</span> Análise rápida
         <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:11px;margin-left:4px">gerada por IA — apenas para você</span>
       </div>
       <div id="analysis-content"></div>
     </div>
 
-    <!-- WhatsApp -->
     <div class="card" id="section-whatsapp" style="display:none">
       <div class="card-title"><span class="step-num">4</span> Mensagem para WhatsApp</div>
       <div class="whats-box" id="whats-text"></div>
       <div class="btn-row">
-        <button onclick="copyMsg()" id="btn-copy">
+        <button id="btn-copy">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           Copiar mensagem
         </button>
-        <button class="green" onclick="openWhatsApp()">
+        <button class="green" id="btn-whatsapp">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.849L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.001-1.368l-.36-.214-3.733.979.994-3.639-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
           Abrir WhatsApp
         </button>
@@ -348,12 +160,7 @@
 <!-- Facebook SDK -->
 <script>
   window.fbAsyncInit = function() {
-    FB.init({
-      appId: '974073708583078',
-      cookie: true,
-      xfbml: false,
-      version: 'v19.0'
-    });
+    FB.init({ appId: '974073708583078', cookie: true, xfbml: false, version: 'v19.0' });
     FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {
         onLoginSuccess(response.authResponse.accessToken);
@@ -370,14 +177,14 @@
 </script>
 
 <script>
-let TOKEN = '';
-let accountName = '';
-let campaignName = '';
-let adsetName = '';
-let metricsData = {};
+var TOKEN = '';
+var accountName = '';
+var campaignName = '';
+var adsetName = '';
+var metricsData = {};
 
 function showError(id, msg) {
-  const el = document.getElementById(id);
+  var el = document.getElementById(id);
   el.textContent = msg;
   el.style.display = msg ? 'block' : 'none';
 }
@@ -385,7 +192,7 @@ function showError(id, msg) {
 function show(id) { document.getElementById(id).style.display = 'block'; }
 function hide(id) { document.getElementById(id).style.display = 'none'; }
 
-function fbLogin() {
+document.getElementById('btn-fb-login').addEventListener('click', function() {
   FB.login(function(response) {
     if (response.authResponse) {
       onLoginSuccess(response.authResponse.accessToken);
@@ -393,17 +200,24 @@ function fbLogin() {
       showError('error-login', 'Login cancelado ou não autorizado.');
     }
   }, { scope: 'ads_read,business_management' });
-}
+});
 
-function fbLogout() {
+document.getElementById('btn-logout').addEventListener('click', function() {
   FB.logout(function() {
     TOKEN = '';
     hide('screen-app');
     show('screen-login');
     hide('section-metrics');
+    hide('section-analysis');
     hide('section-whatsapp');
   });
-}
+});
+
+document.getElementById('account-select').addEventListener('change', loadCampaigns);
+document.getElementById('campaign-select').addEventListener('change', loadAdsets);
+document.getElementById('btn-metrics').addEventListener('click', loadMetrics);
+document.getElementById('btn-copy').addEventListener('click', copyMsg);
+document.getElementById('btn-whatsapp').addEventListener('click', openWhatsApp);
 
 function onLoginSuccess(token) {
   TOKEN = token;
@@ -411,190 +225,189 @@ function onLoginSuccess(token) {
   show('screen-app');
   FB.api('/me', { fields: 'name,picture.width(50)' }, function(res) {
     if (res && res.name) {
-      const pic = res.picture?.data?.url
-        ? `<img src="${res.picture.data.url}" alt="">`
+      var pic = res.picture && res.picture.data && res.picture.data.url
+        ? '<img src="' + res.picture.data.url + '" alt="">'
         : '';
-      document.getElementById('user-info').innerHTML = `${pic}<strong>${res.name}</strong>`;
+      document.getElementById('user-info').innerHTML = pic + '<strong>' + res.name + '</strong>';
     }
   });
   loadAccounts();
 }
 
-async function loadAccounts() {
-  try {
-    const res = await fetch(`https://graph.facebook.com/v19.0/me/adaccounts?fields=name,account_id&limit=50&access_token=${TOKEN}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const sel = document.getElementById('account-select');
-    sel.innerHTML = '<option value="">— selecione a conta —</option>';
-    (data.data || []).forEach(acc => {
-      const opt = document.createElement('option');
-      opt.value = acc.id;
-      opt.textContent = acc.name;
-      opt.dataset.name = acc.name;
-      sel.appendChild(opt);
+function loadAccounts() {
+  fetch('https://graph.facebook.com/v19.0/me/adaccounts?fields=name,account_id&limit=50&access_token=' + TOKEN)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) throw new Error(data.error.message);
+      var sel = document.getElementById('account-select');
+      sel.innerHTML = '<option value="">— selecione a conta —</option>';
+      (data.data || []).forEach(function(acc) {
+        var opt = document.createElement('option');
+        opt.value = acc.id;
+        opt.textContent = acc.name;
+        opt.dataset.name = acc.name;
+        sel.appendChild(opt);
+      });
+      show('section-campaigns');
+    })
+    .catch(function(e) {
+      showError('error-login', 'Erro ao carregar contas: ' + e.message);
     });
-    show('section-campaigns');
-  } catch(e) {
-    showError('error-login', 'Erro ao carregar contas: ' + e.message);
-  }
 }
 
-async function loadCampaigns() {
-  const sel = document.getElementById('account-select');
-  const accId = sel.value;
-  accountName = sel.options[sel.selectedIndex]?.dataset.name || sel.options[sel.selectedIndex]?.textContent || '';
+function loadCampaigns() {
+  var sel = document.getElementById('account-select');
+  var accId = sel.value;
+  accountName = sel.options[sel.selectedIndex] ? (sel.options[sel.selectedIndex].dataset.name || sel.options[sel.selectedIndex].textContent) : '';
   if (!accId) return;
   showError('error-account', '');
-
-  // reset adsets
   document.getElementById('adset-select').innerHTML = '<option value="">Todos os conjuntos</option>';
 
-  try {
-    const res = await fetch(`https://graph.facebook.com/v19.0/${accId}/campaigns?fields=name&limit=100&access_token=${TOKEN}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const cs = document.getElementById('campaign-select');
-    cs.innerHTML = '<option value="">Todas as campanhas</option>';
-    (data.data || []).forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c.id;
-      opt.textContent = c.name;
-      opt.dataset.name = c.name;
-      cs.appendChild(opt);
+  fetch('https://graph.facebook.com/v19.0/' + accId + '/campaigns?fields=name&limit=100&access_token=' + TOKEN)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) throw new Error(data.error.message);
+      var cs = document.getElementById('campaign-select');
+      cs.innerHTML = '<option value="">Todas as campanhas</option>';
+      (data.data || []).forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = c.name;
+        opt.dataset.name = c.name;
+        cs.appendChild(opt);
+      });
+    })
+    .catch(function(e) {
+      showError('error-account', 'Erro ao carregar campanhas: ' + e.message);
     });
-  } catch(e) {
-    showError('error-account', 'Erro ao carregar campanhas: ' + e.message);
-  }
 }
 
-async function loadAdsets() {
-  const csSel = document.getElementById('campaign-select');
-  const campaignId = csSel.value;
-  const accId = document.getElementById('account-select').value;
-
-  const adsetSel = document.getElementById('adset-select');
+function loadAdsets() {
+  var csSel = document.getElementById('campaign-select');
+  var campaignId = csSel.value;
+  var accId = document.getElementById('account-select').value;
+  var adsetSel = document.getElementById('adset-select');
   adsetSel.innerHTML = '<option value="">Todos os conjuntos</option>';
-
-  const parentId = campaignId || accId;
-  const endpoint = campaignId
-    ? `https://graph.facebook.com/v19.0/${campaignId}/adsets?fields=name&limit=100&access_token=${TOKEN}`
-    : `https://graph.facebook.com/v19.0/${accId}/adsets?fields=name&limit=100&access_token=${TOKEN}`;
-
+  var parentId = campaignId || accId;
   if (!parentId) return;
 
-  try {
-    const res = await fetch(endpoint);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
+  var endpoint = campaignId
+    ? 'https://graph.facebook.com/v19.0/' + campaignId + '/adsets?fields=name&limit=100&access_token=' + TOKEN
+    : 'https://graph.facebook.com/v19.0/' + accId + '/adsets?fields=name&limit=100&access_token=' + TOKEN;
 
-    (data.data || []).forEach(a => {
-      const opt = document.createElement('option');
-      opt.value = a.id;
-      opt.textContent = a.name;
-      opt.dataset.name = a.name;
-      adsetSel.appendChild(opt);
+  fetch(endpoint)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) return;
+      (data.data || []).forEach(function(a) {
+        var opt = document.createElement('option');
+        opt.value = a.id;
+        opt.textContent = a.name;
+        opt.dataset.name = a.name;
+        adsetSel.appendChild(opt);
+      });
     });
-  } catch(e) {
-    // silently fail — adsets are optional
-  }
 }
 
 function getDateRange(period) {
-  const today = new Date();
-  const yesterday = new Date(today);
+  var today = new Date();
+  var yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
-  const fmt = d => d.toISOString().split('T')[0];
+  function fmt(d) { return d.toISOString().split('T')[0]; }
 
   if (period === 'this_month') {
     return { since: fmt(new Date(today.getFullYear(), today.getMonth(), 1)), until: fmt(yesterday), label: 'Este mês' };
   }
   if (period === 'last_month') {
-    const first = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-    const last = new Date(today.getFullYear(), today.getMonth(), 0);
+    var first = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    var last = new Date(today.getFullYear(), today.getMonth(), 0);
     return { since: fmt(first), until: fmt(last), label: 'Mês passado' };
   }
-  const since = new Date(yesterday);
+  var since = new Date(yesterday);
   since.setDate(yesterday.getDate() - (parseInt(period) - 1));
-  return { since: fmt(since), until: fmt(yesterday), label: `Últimos ${period} dias` };
+  return { since: fmt(since), until: fmt(yesterday), label: 'Últimos ' + period + ' dias' };
 }
 
-async function loadMetrics() {
-  const accId = document.getElementById('account-select').value;
+function loadMetrics() {
+  var accId = document.getElementById('account-select').value;
   if (!accId) { showError('error-metrics', 'Selecione uma conta primeiro.'); return; }
 
-  const csSel = document.getElementById('campaign-select');
-  const campaignId = csSel.value;
-  campaignName = csSel.options[csSel.selectedIndex]?.textContent || 'Todas as campanhas';
+  var csSel = document.getElementById('campaign-select');
+  var campaignId = csSel.value;
+  campaignName = csSel.options[csSel.selectedIndex] ? csSel.options[csSel.selectedIndex].textContent : 'Todas as campanhas';
 
-  const adsetSel = document.getElementById('adset-select');
-  const adsetId = adsetSel.value;
-  adsetName = adsetId ? adsetSel.options[adsetSel.selectedIndex]?.textContent : '';
+  var adsetSel = document.getElementById('adset-select');
+  var adsetId = adsetSel.value;
+  adsetName = adsetId && adsetSel.options[adsetSel.selectedIndex] ? adsetSel.options[adsetSel.selectedIndex].textContent : '';
 
-  const period = document.getElementById('period-select').value;
-  const { since, until, label } = getDateRange(period);
-  const dateRange = JSON.stringify({ since, until });
+  var period = document.getElementById('period-select').value;
+  var range = getDateRange(period);
+  var dateRange = JSON.stringify({ since: range.since, until: range.until });
 
   showError('error-metrics', '');
-  const btn = document.getElementById('btn-metrics');
-  btn.innerHTML = '<span class="spinner"></span> Buscando...';
+  var btn = document.getElementById('btn-metrics');
+  btn.innerHTML = '<span class="spinner white"></span> Buscando...';
   btn.disabled = true;
 
-  try {
-    const target = adsetId
-      ? `https://graph.facebook.com/v19.0/${adsetId}/insights`
-      : campaignId
-        ? `https://graph.facebook.com/v19.0/${campaignId}/insights`
-        : `https://graph.facebook.com/v19.0/${accId}/insights`;
+  var target = adsetId
+    ? 'https://graph.facebook.com/v19.0/' + adsetId + '/insights'
+    : campaignId
+      ? 'https://graph.facebook.com/v19.0/' + campaignId + '/insights'
+      : 'https://graph.facebook.com/v19.0/' + accId + '/insights';
 
-    const fields = 'impressions,clicks,spend,cpm,cpc,ctr,reach,frequency,actions';
-    const res = await fetch(`${target}?fields=${fields}&time_range=${encodeURIComponent(dateRange)}&access_token=${TOKEN}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
+  var fields = 'impressions,clicks,spend,cpm,cpc,ctr,reach,frequency,actions';
 
-    const d = data.data?.[0];
-    if (!d) {
-      showError('error-metrics', 'Sem dados para o período selecionado.');
+  fetch(target + '?fields=' + fields + '&time_range=' + encodeURIComponent(dateRange) + '&access_token=' + TOKEN)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) throw new Error(data.error.message);
+      var d = data.data && data.data[0];
+      if (!d) {
+        showError('error-metrics', 'Sem dados para o período selecionado.');
+        btn.innerHTML = 'Buscar métricas';
+        btn.disabled = false;
+        return;
+      }
+
+      var actions = d.actions || [];
+      var conversions = null;
+      var types = ['offsite_conversion.fb_pixel_purchase', 'purchase', 'lead'];
+      for (var i = 0; i < types.length; i++) {
+        var found = actions.find(function(a) { return a.action_type === types[i]; });
+        if (found) { conversions = found.value; break; }
+      }
+
+      metricsData = {
+        impressoes: parseInt(d.impressions || 0).toLocaleString('pt-BR'),
+        alcance: parseInt(d.reach || 0).toLocaleString('pt-BR'),
+        cliques: parseInt(d.clicks || 0).toLocaleString('pt-BR'),
+        gasto: parseFloat(d.spend || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+        cpm: parseFloat(d.cpm || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+        cpc: parseFloat(d.cpc || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+        ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
+        frequencia: parseFloat(d.frequency || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
+        label: range.label,
+        since: range.since,
+        until: range.until
+      };
+
+      renderMetrics();
+      renderWhatsapp();
+      analyzeMetrics();
       btn.innerHTML = 'Buscar métricas';
       btn.disabled = false;
-      return;
-    }
-
-    const conversions =
-      (d.actions || []).find(a => a.action_type === 'offsite_conversion.fb_pixel_purchase')?.value ||
-      (d.actions || []).find(a => a.action_type === 'purchase')?.value ||
-      (d.actions || []).find(a => a.action_type === 'lead')?.value || null;
-
-    metricsData = {
-      impressoes: parseInt(d.impressions || 0).toLocaleString('pt-BR'),
-      alcance: parseInt(d.reach || 0).toLocaleString('pt-BR'),
-      cliques: parseInt(d.clicks || 0).toLocaleString('pt-BR'),
-      gasto: parseFloat(d.spend || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-      cpm: parseFloat(d.cpm || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-      cpc: parseFloat(d.cpc || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-      ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
-      frequencia: parseFloat(d.frequency || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-      conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
-      label, since, until
-    };
-
-    renderMetrics();
-    renderWhatsapp();
-    analyzeMetrics();
-    btn.innerHTML = 'Buscar métricas';
-    btn.disabled = false;
-  } catch(e) {
-    showError('error-metrics', 'Erro: ' + e.message);
-    btn.innerHTML = 'Buscar métricas';
-    btn.disabled = false;
-  }
+    })
+    .catch(function(e) {
+      showError('error-metrics', 'Erro: ' + e.message);
+      btn.innerHTML = 'Buscar métricas';
+      btn.disabled = false;
+    });
 }
 
 function renderMetrics() {
-  document.getElementById('metrics-period-label').textContent = `· ${metricsData.label}`;
-  const cards = [
+  document.getElementById('metrics-period-label').textContent = '· ' + metricsData.label;
+  var cards = [
     { label: 'Impressões', value: metricsData.impressoes },
     { label: 'Alcance', value: metricsData.alcance },
     { label: 'Cliques', value: metricsData.cliques },
@@ -602,114 +415,108 @@ function renderMetrics() {
     { label: 'Frequência', value: metricsData.frequencia + 'x' },
     { label: 'Gasto total', value: metricsData.gasto },
     { label: 'CPM', value: metricsData.cpm },
-    { label: 'CPC', value: metricsData.cpc },
+    { label: 'CPC', value: metricsData.cpc }
   ];
-  if (metricsData.conversoes) cards.push({ label: 'Conversões', value: metricsData.conversoes });
+  if (metricsData.conversoes) { cards.push({ label: 'Conversões', value: metricsData.conversoes }); }
 
-  document.getElementById('metrics-grid').innerHTML = cards.map(c =>
-    `<div class="metric"><div class="metric-label">${c.label}</div><div class="metric-value">${c.value}</div></div>`
-  ).join('');
+  document.getElementById('metrics-grid').innerHTML = cards.map(function(c) {
+    return '<div class="metric"><div class="metric-label">' + c.label + '</div><div class="metric-value">' + c.value + '</div></div>';
+  }).join('');
 
   show('section-metrics');
 }
 
 function renderWhatsapp() {
-  const m = metricsData;
-  const conv = m.conversoes ? `\n🎯 Conversões: ${m.conversoes}` : '';
-  const adsetLine = adsetName ? `\n📂 Conjunto: ${adsetName}` : '';
+  var m = metricsData;
+  var conv = m.conversoes ? '\n🎯 Conversões: ' + m.conversoes : '';
+  var adsetLine = adsetName ? '\n📂 Conjunto: ' + adsetName : '';
+  var since = m.since.split('-').reverse().join('/');
+  var until = m.until.split('-').reverse().join('/');
 
-  const since = m.since.split('-').reverse().join('/');
-  const until = m.until.split('-').reverse().join('/');
-
-  const msg =
-`📊 *Relatório de Anúncios*
-📅 ${m.label} (${since} → ${until})
-🏢 Conta: ${accountName}
-📣 Campanha: ${campaignName}${adsetLine}
-
-👁️ Impressões: ${m.impressoes}
-👥 Alcance: ${m.alcance}
-🔁 Frequência: ${m.frequencia}x
-🖱️ Cliques: ${m.cliques}
-📈 CTR: ${m.ctr}
-💰 Investimento: ${m.gasto}
-📌 CPM: ${m.cpm}
-🔗 CPC: ${m.cpc}${conv}
-
-*O que significa cada métrica?*
-• Impressões: quantas vezes o anúncio foi exibido
-• Alcance: pessoas únicas que viram o anúncio
-• Frequência: média de vezes que cada pessoa viu
-• Cliques: acessos ao site ou link do anúncio
-• CTR: % de pessoas que clicaram após ver
-• Investimento: total gasto no período
-• CPM: custo para exibir o anúncio 1.000 vezes
-• CPC: custo médio por clique
-• Conversões: ações realizadas pelo usuário após clicar (compra, cadastro, contato etc.)`;
+  var msg = '📊 *Relatório de Anúncios*\n'
+    + '📅 ' + m.label + ' (' + since + ' → ' + until + ')\n'
+    + '🏢 Conta: ' + accountName + '\n'
+    + '📣 Campanha: ' + campaignName + adsetLine + '\n'
+    + '\n'
+    + '👁️ Impressões: ' + m.impressoes + '\n'
+    + '👥 Alcance: ' + m.alcance + '\n'
+    + '🔁 Frequência: ' + m.frequencia + 'x\n'
+    + '🖱️ Cliques: ' + m.cliques + '\n'
+    + '📈 CTR: ' + m.ctr + '\n'
+    + '💰 Investimento: ' + m.gasto + '\n'
+    + '📌 CPM: ' + m.cpm + '\n'
+    + '🔗 CPC: ' + m.cpc
+    + conv + '\n'
+    + '\n'
+    + '*O que significa cada métrica?*\n'
+    + '• Impressões: quantas vezes o anúncio foi exibido\n'
+    + '• Alcance: pessoas únicas que viram o anúncio\n'
+    + '• Frequência: média de vezes que cada pessoa viu\n'
+    + '• Cliques: acessos ao site ou link do anúncio\n'
+    + '• CTR: % de pessoas que clicaram após ver\n'
+    + '• Investimento: total gasto no período\n'
+    + '• CPM: custo para exibir o anúncio 1.000 vezes\n'
+    + '• CPC: custo médio por clique\n'
+    + '• Conversões: ações realizadas após clicar (compra, cadastro, contato etc.)';
 
   document.getElementById('whats-text').textContent = msg;
   show('section-whatsapp');
 }
 
-async function analyzeMetrics() {
-  const m = metricsData;
-  const el = document.getElementById('analysis-content');
+function analyzeMetrics() {
+  var m = metricsData;
+  var el = document.getElementById('analysis-content');
   show('section-analysis');
-  el.innerHTML = `<div class="analysis-loading"><span class="spinner dark"></span> Analisando métricas...</div>`;
+  el.innerHTML = '<div class="analysis-loading"><span class="spinner"></span> Analisando métricas...</div>';
 
-  const prompt = `Você é um especialista em tráfego pago no Meta Ads. Analise as métricas abaixo e gere um diagnóstico rápido e objetivo para o gestor de tráfego.
+  var prompt = 'Você é um especialista em tráfego pago no Meta Ads. Analise as métricas abaixo e gere um diagnóstico rápido e objetivo para o gestor de tráfego.\n\n'
+    + 'Métricas da campanha "' + campaignName + '" — ' + m.label + ':\n'
+    + '- Impressões: ' + m.impressoes + '\n'
+    + '- Alcance: ' + m.alcance + '\n'
+    + '- Frequência: ' + m.frequencia + 'x\n'
+    + '- Cliques: ' + m.cliques + '\n'
+    + '- CTR: ' + m.ctr + '\n'
+    + '- Investimento: ' + m.gasto + '\n'
+    + '- CPM: ' + m.cpm + '\n'
+    + '- CPC: ' + m.cpc + '\n'
+    + (m.conversoes ? '- Conversões: ' + m.conversoes + '\n' : '')
+    + '\nGere entre 3 e 5 pontos curtos. Cada ponto deve começar com um emoji: ✅ para bom, ⚠️ para atenção, 🔴 para problema. Seja direto e prático em português brasileiro. Sem introdução, sem conclusão, apenas os pontos.';
 
-Métricas da campanha "${campaignName}" — ${m.label}:
-- Impressões: ${m.impressoes}
-- Alcance: ${m.alcance}
-- Frequência: ${m.frequencia}x
-- Cliques: ${m.cliques}
-- CTR: ${m.ctr}
-- Investimento: ${m.gasto}
-- CPM: ${m.cpm}
-- CPC: ${m.cpc}
-${m.conversoes ? `- Conversões: ${m.conversoes}` : ''}
-
-Gere entre 3 e 5 pontos curtos. Cada ponto deve começar com um emoji indicando status:
-✅ para bom, ⚠️ para atenção, 🔴 para problema.
-Seja direto, prático e em português brasileiro. Sem introdução, sem conclusão, apenas os pontos.`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await res.json();
-    const text = data.content?.[0]?.text || 'Não foi possível gerar a análise.';
-
-    const html = text.split('\n')
-      .filter(l => l.trim())
-      .map(l => `<p>${l.trim()}</p>`)
-      .join('');
-
-    el.innerHTML = `<div class="analysis-box">${html}</div>`;
-  } catch(e) {
-    el.innerHTML = `<div class="analysis-box" style="color:var(--muted)">Não foi possível gerar a análise.</div>`;
-  }
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.content && data.content[0] ? data.content[0].text : 'Não foi possível gerar a análise.';
+    var html = text.split('\n').filter(function(l) { return l.trim(); }).map(function(l) {
+      return '<p>' + l.trim() + '</p>';
+    }).join('');
+    el.innerHTML = '<div class="analysis-box">' + html + '</div>';
+  })
+  .catch(function() {
+    el.innerHTML = '<div class="analysis-box" style="color:var(--muted)">Não foi possível gerar a análise.</div>';
+  });
 }
 
-
-  const txt = document.getElementById('whats-text').textContent;
-  navigator.clipboard.writeText(txt).then(() => {
-    const btn = document.getElementById('btn-copy');
+function copyMsg() {
+  var txt = document.getElementById('whats-text').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    var btn = document.getElementById('btn-copy');
     btn.innerHTML = '✓ Copiado!';
-    setTimeout(() => btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar mensagem`, 2000);
+    setTimeout(function() {
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar mensagem';
+    }, 2000);
   });
 }
 
 function openWhatsApp() {
-  const txt = encodeURIComponent(document.getElementById('whats-text').textContent);
+  var txt = encodeURIComponent(document.getElementById('whats-text').textContent);
   window.open('https://wa.me/?text=' + txt, '_blank');
 }
 </script>
