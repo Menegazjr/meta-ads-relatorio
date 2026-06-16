@@ -480,21 +480,43 @@ function analyzeMetrics() {
   show('section-analysis');
   el.innerHTML = '<div class="analysis-loading"><span class="spinner"></span> Analisando métricas com IA...</div>';
 
-  var prompt = 'Você é um especialista em tráfego pago no Meta Ads. Analise as métricas abaixo e gere um diagnóstico rápido e objetivo para o gestor de tráfego.\n\n'
-    + 'Campanha: ' + campaignName + '\n'
-    + 'Período: ' + m.label + '\n'
-    + 'Impressões: ' + m.impressoes + '\n'
-    + 'Alcance: ' + m.alcance + '\n'
-    + 'Frequência: ' + m.frequencia + 'x\n'
-    + 'Cliques: ' + m.cliques + '\n'
-    + 'CTR: ' + m.ctr + '\n'
-    + 'Investimento: ' + m.gasto + '\n'
-    + 'CPM: ' + m.cpm + '\n'
-    + 'CPC: ' + m.cpc + '\n'
-    + (m.conversoes ? 'Conversões: ' + m.conversoes + '\n' : 'Conversões: não registradas\n')
-    + (m.mensagens ? 'Mensagens iniciadas: ' + m.mensagens + '\n' : '')
-    + '\nGere entre 3 e 5 pontos curtos e diretos. Cada ponto deve começar com um emoji: ✅ para bom, ⚠️ para atenção, 🔴 para problema. Escreva em português brasileiro. Sem introdução, sem conclusão, apenas os pontos.';
+  var prompt =
+'Você é um gestor de tráfego especialista em Meta Ads.\n\n' +
 
+'Analise SOMENTE os dados fornecidos.\n' +
+'Não invente informações.\n' +
+'Não assuma que a campanha está ruim sem evidências.\n' +
+'Não afirme que existe saturação se a frequência for menor que 3.\n' +
+'Considere CTR acima de 2% como positivo.\n' +
+'Considere frequência abaixo de 2 como saudável.\n' +
+'Considere mensagens iniciadas como um resultado positivo.\n' +
+'Considere conversões como resultado positivo.\n' +
+'Identifique gargalos apenas quando os números justificarem.\n\n' +
+
+'Campanha: ' + campaignName + '\n' +
+'Período: ' + m.label + '\n' +
+'Impressões: ' + m.impressoes + '\n' +
+'Alcance: ' + m.alcance + '\n' +
+'Frequência: ' + m.frequencia + 'x\n' +
+'Cliques: ' + m.cliques + '\n' +
+'CTR: ' + m.ctr + '\n' +
+'Investimento: ' + m.gasto + '\n' +
+'CPM: ' + m.cpm + '\n' +
+'CPC: ' + m.cpc + '\n' +
+(m.conversoes ? 'Conversões: ' + m.conversoes + '\n' : 'Conversões: não registradas\n') +
+(m.mensagens ? 'Mensagens iniciadas: ' + m.mensagens + '\n' : '') +
+
+'\nRetorne exatamente neste formato:\n\n' +
+
+'✅ Pontos positivos\n' +
+'⚠️ Pontos de atenção\n' +
+'🔴 Problemas críticos\n\n' +
+
+'Máximo 5 tópicos.\n' +
+'Sem introdução.\n' +
+'Sem conclusão.\n' +
+'Direto ao ponto.';
+  
   fetch('https://meta-ads-ai.menegazjr.workers.dev', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
