@@ -475,13 +475,18 @@ function renderWhatsapp() {
   var since = m.since.split('-').reverse().join('/');
   var until = m.until.split('-').reverse().join('/');
 
+  // Saudação dinâmica por horário
+  var hora = new Date().getHours();
+  var saudacao = hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
+
   var extras = '';
   if (m.conversoes) { extras += '\n🎯 Conversões: ' + m.conversoes; }
   if (m.mensagens) { extras += '\n💬 Mensagens iniciadas: ' + m.mensagens; }
   if (m.custoPorConversa) { extras += '\n💵 Custo por conversa: ' + m.custoPorConversa; }
   if (m.visitasPerfil) { extras += '\n👤 Visitas ao perfil: ' + m.visitasPerfil; }
 
-  var msg = '📊 *Relatório de Anúncios*\n'
+  var msg = saudacao + '! 😊 Tudo bem? Segue abaixo o relatório da campanha. Qualquer dúvida, estou à disposição!\n\n'
+    + '📊 *Relatório de Anúncios*\n'
     + '📅 ' + m.label + ' (' + since + ' → ' + until + ')\n'
     + '🏢 Conta: ' + accountName + '\n'
     + '📣 Campanha: ' + campaignName + adsetLine + '\n'
@@ -512,7 +517,8 @@ function renderWhatsapp() {
   document.getElementById('whats-text').textContent = msg;
 
   // Formato resumido
-  var resumo = '📊 RELATÓRIO DA SEMANA\n'
+  var resumo = saudacao + '! 😊 Tudo bem? Segue abaixo o relatório da campanha. Qualquer dúvida, estou à disposição!\n\n'
+    + '📊 RELATÓRIO DA SEMANA\n'
     + '📲 ' + accountName + '\n'
     + '📅 Período: ' + since + ' até ' + until + '\n'
     + '💸 Investimento Total: ' + m.gasto + '\n'
