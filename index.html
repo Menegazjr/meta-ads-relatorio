@@ -527,15 +527,13 @@ function renderWhatsapp() {
     + '• Alcance: ' + m.alcance + '\n'
     + '• Cliques: ' + m.cliques + '\n'
     + '• CTR: ' + m.ctr + '\n'
-    + '• Frequência: ' + m.frequencia + 'x\n'
-    + '• Valor Gasto: ' + m.gasto;
+    + '• Frequência: ' + m.frequencia + 'x';
 
   if (m.visitasPerfil) { resumo += '\n• Visitas ao Perfil: ' + m.visitasPerfil; }
 
   if (m.mensagens) {
     resumo += '\n\n💬 MENSAGENS\n'
-      + '• Conversas: ' + m.mensagens + '\n'
-      + '• Valor Gasto: ' + m.gasto;
+      + '• Conversas: ' + m.mensagens;
     if (m.custoPorConversa) { resumo += '\n• Custo por Conversa: ' + m.custoPorConversa; }
   }
 
