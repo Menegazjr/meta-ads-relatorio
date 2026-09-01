@@ -6,205 +6,54 @@
 <title>Meta Ads — Relatório</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #f5f4f0;
-    --surface: #ffffff;
-    --border: #e2e0d8;
-    --text: #1a1917;
-    --muted: #6b6960;
-    --accent: #1877f2;
-    --accent-light: #e8f0fe;
-    --success: #1a7a4a;
-    --success-bg: #e6f4ed;
-    --danger: #c0392b;
-    --danger-bg: #fdf0ee;
-    --radius: 10px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --bg: #f5f4f0; --surface: #ffffff; --border: #e2e0d8;
+    --text: #1a1917; --muted: #6b6960; --accent: #1877f2;
+    --danger: #c0392b; --danger-bg: #fdf0ee;
+    --radius: 10px; --shadow: 0 1px 3px rgba(0,0,0,0.08);
   }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem; }
   .container { max-width: 680px; margin: 0 auto; }
-
-  header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 2rem;
-  }
-
-  .logo {
-    width: 40px; height: 40px;
-    background: var(--accent);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-  }
-
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+  .logo { width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
   .logo svg { width: 22px; height: 22px; fill: white; }
-
   header h1 { font-size: 18px; font-weight: 600; }
   header p { font-size: 13px; color: var(--muted); margin-top: 1px; }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: var(--shadow);
-  }
-
-  .card-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .step-num {
-    width: 20px; height: 20px;
-    background: var(--accent);
-    color: white;
-    border-radius: 50%;
-    font-size: 11px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+  .step-num { width: 20px; height: 20px; background: var(--accent); color: white; border-radius: 50%; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
   label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 5px; }
-
-  input, select {
-    width: 100%;
-    height: 40px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text);
-    background: var(--bg);
-    outline: none;
-    transition: border-color 0.15s;
-  }
-
+  input, select { width: 100%; height: 40px; border: 1px solid var(--border); border-radius: 8px; padding: 0 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.15s; }
   input:focus, select:focus { border-color: var(--accent); background: white; }
-  input[type=password] { font-family: 'DM Mono', monospace; font-size: 13px; }
-
-  .row { display: flex; gap: 10px; }
-  .row > div:first-child { flex: 1; }
-
-  button {
-    height: 40px;
-    padding: 0 18px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-  }
-
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 1rem; }
+  button { height: 40px; padding: 0 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; white-space: nowrap; display: inline-flex; align-items: center; gap: 7px; }
   button:hover { background: var(--bg); border-color: #ccc; }
   button.primary { background: var(--accent); color: white; border-color: var(--accent); }
-  button.primary:hover { background: #1565d8; border-color: #1565d8; }
+  button.primary:hover { background: #1565d8; }
   button.green { background: #25d366; color: white; border-color: #25d366; }
   button.green:hover { background: #1ebe5a; }
   button:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 1rem; }
-
-  .metric {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-  }
-
+  .fb-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; background: #1877f2; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .fb-btn:hover { background: #1565d8; }
+  .fb-btn svg { width: 20px; height: 20px; fill: white; }
+  .metric { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
   .metric-label { font-size: 12px; color: var(--muted); margin-bottom: 5px; }
   .metric-value { font-size: 20px; font-weight: 600; }
-
-  .error {
-    font-size: 13px;
-    color: var(--danger);
-    background: var(--danger-bg);
-    border-radius: 6px;
-    padding: 8px 12px;
-    margin-top: 8px;
-    display: none;
-  }
-
-  .success-badge {
-    font-size: 12px;
-    color: var(--success);
-    background: var(--success-bg);
-    border-radius: 6px;
-    padding: 4px 10px;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .disabled { opacity: 0.45; pointer-events: none; }
-
-  .whats-box {
-    background: #e9fbe5;
-    border: 1px solid #c3edb8;
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
-    font-size: 14px;
-    line-height: 1.65;
-    white-space: pre-wrap;
-    color: #1a1917;
-    margin-bottom: 1rem;
-    font-family: 'DM Mono', monospace;
-  }
-
+  .error { font-size: 13px; color: var(--danger); background: var(--danger-bg); border-radius: 6px; padding: 8px 12px; margin-top: 8px; display: none; }
+  .whats-box { background: #e9fbe5; border: 1px solid #c3edb8; border-radius: 8px; padding: 1rem 1.25rem; font-size: 14px; line-height: 1.65; white-space: pre-wrap; color: #1a1917; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
   .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
-
-  .token-link {
-    font-size: 12px;
-    color: var(--accent);
-    text-decoration: none;
-    margin-left: 8px;
-  }
-  .token-link:hover { text-decoration: underline; }
-
-  .spinner {
-    width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: inline-block;
-  }
-  .spinner.dark { border-color: rgba(0,0,0,0.15); border-top-color: var(--accent); }
+  .user-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 1.25rem; font-size: 13px; }
+  .user-bar img { width: 28px; height: 28px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .user-bar a { font-size: 12px; color: var(--danger); cursor: pointer; text-decoration: none; }
+  .user-bar a:hover { text-decoration: underline; }
+  .analysis-box { font-size: 14px; line-height: 1.7; color: var(--text); margin-top: 0.5rem; }
+  .analysis-box p { margin-bottom: 6px; }
+  .analysis-loading { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); padding: 8px 0; }
+  .spinner { width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.12); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+  .spinner.white { border-color: rgba(255,255,255,0.3); border-top-color: white; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  #section-campaigns, #section-metrics, #section-whatsapp { display: none; }
 </style>
 </head>
 <body>
@@ -212,9 +61,7 @@
 
   <header>
     <div class="logo">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
     </div>
     <div>
       <h1>Meta Ads — Relatório</h1>
@@ -222,37 +69,50 @@
     </div>
   </header>
 
-  <!-- STEP 1: Token -->
-  <div class="card" id="section-token">
-    <div class="card-title"><span class="step-num">1</span> Access Token
-      <a class="token-link" href="https://developers.facebook.com/tools/explorer/" target="_blank">→ Obter token</a>
+  <!-- LOGIN -->
+  <div id="screen-login">
+    <div class="card" style="text-align:center; padding: 2rem 1.5rem;">
+      <p style="font-size:14px; color:var(--muted); margin-bottom:1.5rem;">Entre com sua conta do Facebook para acessar as métricas das suas campanhas.</p>
+      <button class="fb-btn" id="btn-fb-login">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        Entrar com Facebook
+      </button>
+      <div class="error" id="error-login" style="text-align:left; margin-top:1rem;"></div>
     </div>
-    <label>Cole seu token de acesso</label>
-    <div class="row">
-      <div><input type="password" id="token-input" placeholder="EAAxxxxx..." /></div>
-      <button class="primary" onclick="loadAccounts()" id="btn-connect">Conectar</button>
-    </div>
-    <div class="error" id="error-token"></div>
   </div>
 
-  <!-- STEP 2: Conta + Campanha + Período -->
-  <div class="card disabled" id="section-campaigns">
-    <div class="card-title"><span class="step-num">2</span> Selecionar dados</div>
-    <div style="margin-bottom:12px">
-      <label>Conta de anúncios</label>
-      <select id="account-select" onchange="loadCampaigns()">
-        <option value="">— selecione a conta —</option>
-      </select>
-      <div class="error" id="error-account"></div>
+  <!-- APP -->
+  <div id="screen-app" style="display:none">
+
+    <div class="user-bar">
+      <span id="user-info">Carregando...</span>
+      <a id="btn-logout">Sair</a>
     </div>
-    <div class="grid2" style="margin-bottom:16px">
-      <div>
-        <label>Campanha</label>
-        <select id="campaign-select">
-          <option value="">Todas as campanhas</option>
+
+    <div class="card" id="section-campaigns" style="display:none">
+      <div class="card-title"><span class="step-num">1</span> Selecionar dados</div>
+      <div style="margin-bottom:12px">
+        <label>Conta de anúncios</label>
+        <select id="account-select">
+          <option value="">— selecione a conta —</option>
         </select>
+        <div class="error" id="error-account"></div>
       </div>
-      <div>
+      <div class="grid2" style="margin-bottom:12px">
+        <div>
+          <label>Campanha</label>
+          <select id="campaign-select">
+            <option value="">Todas as campanhas</option>
+          </select>
+        </div>
+        <div>
+          <label>Conjunto de anúncios</label>
+          <select id="adset-select">
+            <option value="">Todos os conjuntos</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:16px">
         <label>Período</label>
         <select id="period-select">
           <option value="7">Últimos 7 dias</option>
@@ -262,247 +122,495 @@
           <option value="last_month">Mês passado</option>
         </select>
       </div>
+      <button class="primary" id="btn-metrics">Buscar métricas</button>
+      <div class="error" id="error-metrics"></div>
     </div>
-    <button class="primary" onclick="loadMetrics()" id="btn-metrics">
-      Buscar métricas
-    </button>
-    <div class="error" id="error-metrics"></div>
-  </div>
 
-  <!-- STEP 3: Métricas -->
-  <div class="card" id="section-metrics">
-    <div class="card-title"><span class="step-num">3</span> Resultados <span id="metrics-period-label" style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:12px;margin-left:4px"></span></div>
-    <div class="grid4" id="metrics-grid"></div>
-  </div>
-
-  <!-- STEP 4: WhatsApp -->
-  <div class="card" id="section-whatsapp">
-    <div class="card-title"><span class="step-num">4</span> Mensagem para WhatsApp</div>
-    <div class="whats-box" id="whats-text"></div>
-    <div class="btn-row">
-      <button onclick="copyMsg()" id="btn-copy">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        Copiar mensagem
-      </button>
-      <button class="green" onclick="openWhatsApp()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.849L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.001-1.368l-.36-.214-3.733.979.994-3.639-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
-        Abrir WhatsApp
-      </button>
+    <div class="card" id="section-metrics" style="display:none">
+      <div class="card-title"><span class="step-num">2</span> Resultados <span id="metrics-period-label" style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:12px;margin-left:4px"></span></div>
+      <div class="grid4" id="metrics-grid"></div>
     </div>
-  </div>
 
+    <div class="card" id="section-analysis" style="display:none">
+      <div class="card-title">
+        <span class="step-num">3</span> Análise rápida
+        <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:11px;margin-left:4px">gerada por IA — apenas para você</span>
+      </div>
+      <div id="analysis-content"></div>
+    </div>
+
+    <div class="card" id="section-whatsapp" style="display:none">
+      <div class="card-title"><span class="step-num">4</span> Mensagem para WhatsApp</div>
+
+      <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">Formato completo</div>
+      <div class="whats-box" id="whats-text"></div>
+      <div class="btn-row" style="margin-bottom:1.5rem">
+        <button id="btn-copy">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar mensagem
+        </button>
+        <button class="green" id="btn-whatsapp">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.849L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.001-1.368l-.36-.214-3.733.979.994-3.639-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
+          Abrir WhatsApp
+        </button>
+      </div>
+
+      <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">Formato resumido</div>
+      <div class="whats-box" id="whats-text-resumo"></div>
+      <div class="btn-row">
+        <button id="btn-copy-resumo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar resumo
+        </button>
+        <button class="green" id="btn-whatsapp-resumo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.849L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.001-1.368l-.36-.214-3.733.979.994-3.639-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
+          Abrir WhatsApp
+        </button>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<!-- Facebook SDK -->
 <script>
-let TOKEN = '';
-let accountName = '';
-let campaignName = '';
-let metricsData = {};
+  window.fbAsyncInit = function() {
+    FB.init({ appId: '974073708583078', cookie: true, xfbml: false, version: 'v19.0' });
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        onLoginSuccess(response.authResponse.accessToken);
+      }
+    });
+  };
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/pt_BR/sdk.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+var TOKEN = '';
+var accountName = '';
+var campaignName = '';
+var adsetName = '';
+var metricsData = {};
 
 function showError(id, msg) {
-  const el = document.getElementById(id);
+  var el = document.getElementById(id);
   el.textContent = msg;
   el.style.display = msg ? 'block' : 'none';
 }
 
-function unlock(id) {
-  document.getElementById(id).classList.remove('disabled');
-  document.getElementById(id).style.display = 'block';
+function show(id) { document.getElementById(id).style.display = 'block'; }
+function hide(id) { document.getElementById(id).style.display = 'none'; }
+
+document.getElementById('btn-fb-login').addEventListener('click', function() {
+  FB.login(function(response) {
+    if (response.authResponse) {
+      onLoginSuccess(response.authResponse.accessToken);
+    } else {
+      showError('error-login', 'Login cancelado ou não autorizado.');
+    }
+  }, { scope: 'ads_read,business_management' });
+});
+
+document.getElementById('btn-logout').addEventListener('click', function() {
+  FB.logout(function() {
+    TOKEN = '';
+    hide('screen-app');
+    show('screen-login');
+    hide('section-metrics');
+    hide('section-analysis');
+    hide('section-whatsapp');
+  });
+});
+
+document.getElementById('account-select').addEventListener('change', loadCampaigns);
+document.getElementById('campaign-select').addEventListener('change', loadAdsets);
+document.getElementById('btn-metrics').addEventListener('click', loadMetrics);
+document.getElementById('btn-copy').addEventListener('click', copyMsg);
+document.getElementById('btn-whatsapp').addEventListener('click', openWhatsApp);
+document.getElementById('btn-copy-resumo').addEventListener('click', copyMsgResumo);
+document.getElementById('btn-whatsapp-resumo').addEventListener('click', openWhatsAppResumo);
+
+function onLoginSuccess(token) {
+  TOKEN = token;
+  hide('screen-login');
+  show('screen-app');
+  FB.api('/me', { fields: 'name,picture.width(50)' }, function(res) {
+    if (res && res.name) {
+      var pic = res.picture && res.picture.data && res.picture.data.url
+        ? '<img src="' + res.picture.data.url + '" alt="">'
+        : '';
+      document.getElementById('user-info').innerHTML = pic + '<strong>' + res.name + '</strong>';
+    }
+  });
+  loadAccounts();
 }
 
-async function loadAccounts() {
-  TOKEN = document.getElementById('token-input').value.trim();
-  if (!TOKEN) { showError('error-token', 'Cole o access token antes de continuar.'); return; }
-  showError('error-token', '');
-
-  const btn = document.getElementById('btn-connect');
-  btn.innerHTML = '<span class="spinner"></span> Conectando...';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch(`https://graph.facebook.com/v19.0/me/adaccounts?fields=name,account_id&limit=50&access_token=${TOKEN}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const sel = document.getElementById('account-select');
-    sel.innerHTML = '<option value="">— selecione a conta —</option>';
-    (data.data || []).forEach(acc => {
-      const opt = document.createElement('option');
-      opt.value = acc.id;
-      opt.textContent = acc.name;
-      opt.dataset.name = acc.name;
-      sel.appendChild(opt);
+function loadAccounts() {
+  fetch('https://graph.facebook.com/v19.0/me/adaccounts?fields=name,account_id&limit=50&access_token=' + TOKEN)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) throw new Error(data.error.message);
+      var sel = document.getElementById('account-select');
+      sel.innerHTML = '<option value="">— selecione a conta —</option>';
+      (data.data || []).forEach(function(acc) {
+        var opt = document.createElement('option');
+        opt.value = acc.id;
+        opt.textContent = acc.name;
+        opt.dataset.name = acc.name;
+        sel.appendChild(opt);
+      });
+      show('section-campaigns');
+    })
+    .catch(function(e) {
+      showError('error-login', 'Erro ao carregar contas: ' + e.message);
     });
-
-    unlock('section-campaigns');
-    btn.innerHTML = '✓ Conectado';
-    btn.style.background = '#1a7a4a';
-    btn.style.borderColor = '#1a7a4a';
-  } catch(e) {
-    showError('error-token', 'Erro: ' + e.message);
-    btn.innerHTML = 'Conectar';
-    btn.disabled = false;
-  }
 }
 
-async function loadCampaigns() {
-  const sel = document.getElementById('account-select');
-  const accId = sel.value;
-  accountName = sel.options[sel.selectedIndex]?.dataset.name || sel.options[sel.selectedIndex]?.textContent || '';
+function loadCampaigns() {
+  var sel = document.getElementById('account-select');
+  var accId = sel.value;
+  accountName = sel.options[sel.selectedIndex] ? (sel.options[sel.selectedIndex].dataset.name || sel.options[sel.selectedIndex].textContent) : '';
   if (!accId) return;
   showError('error-account', '');
+  document.getElementById('adset-select').innerHTML = '<option value="">Todos os conjuntos</option>';
 
-  try {
-    const res = await fetch(`https://graph.facebook.com/v19.0/${accId}/campaigns?fields=name&limit=100&access_token=${TOKEN}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const cs = document.getElementById('campaign-select');
-    cs.innerHTML = '<option value="">Todas as campanhas</option>';
-    (data.data || []).forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c.id;
-      opt.textContent = c.name;
-      opt.dataset.name = c.name;
-      cs.appendChild(opt);
+  fetch('https://graph.facebook.com/v19.0/' + accId + '/campaigns?fields=name&limit=100&access_token=' + TOKEN)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) throw new Error(data.error.message);
+      var cs = document.getElementById('campaign-select');
+      cs.innerHTML = '<option value="">Todas as campanhas</option>';
+      (data.data || []).forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = c.name;
+        opt.dataset.name = c.name;
+        cs.appendChild(opt);
+      });
+    })
+    .catch(function(e) {
+      showError('error-account', 'Erro ao carregar campanhas: ' + e.message);
     });
-  } catch(e) {
-    showError('error-account', 'Erro ao carregar campanhas: ' + e.message);
-  }
+}
+
+function loadAdsets() {
+  var csSel = document.getElementById('campaign-select');
+  var campaignId = csSel.value;
+  var accId = document.getElementById('account-select').value;
+  var adsetSel = document.getElementById('adset-select');
+  adsetSel.innerHTML = '<option value="">Todos os conjuntos</option>';
+  var parentId = campaignId || accId;
+  if (!parentId) return;
+
+  var endpoint = campaignId
+    ? 'https://graph.facebook.com/v19.0/' + campaignId + '/adsets?fields=name&limit=100&access_token=' + TOKEN
+    : 'https://graph.facebook.com/v19.0/' + accId + '/adsets?fields=name&limit=100&access_token=' + TOKEN;
+
+  fetch(endpoint)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) return;
+      (data.data || []).forEach(function(a) {
+        var opt = document.createElement('option');
+        opt.value = a.id;
+        opt.textContent = a.name;
+        opt.dataset.name = a.name;
+        adsetSel.appendChild(opt);
+      });
+    });
 }
 
 function getDateRange(period) {
-  const today = new Date();
-  const fmt = d => d.toISOString().split('T')[0];
+  var today = new Date();
+  var yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  function fmt(d) { return d.toISOString().split('T')[0]; }
+
   if (period === 'this_month') {
-    return { since: fmt(new Date(today.getFullYear(), today.getMonth(), 1)), until: fmt(today), label: 'Este mês' };
+    return { since: fmt(new Date(today.getFullYear(), today.getMonth(), 1)), until: fmt(yesterday), label: 'Este mês' };
   }
   if (period === 'last_month') {
-    const first = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-    const last = new Date(today.getFullYear(), today.getMonth(), 0);
+    var first = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    var last = new Date(today.getFullYear(), today.getMonth(), 0);
     return { since: fmt(first), until: fmt(last), label: 'Mês passado' };
   }
-  const since = new Date(today);
-  since.setDate(today.getDate() - parseInt(period));
-  return { since: fmt(since), until: fmt(today), label: `Últimos ${period} dias` };
+  var since = new Date(yesterday);
+  since.setDate(yesterday.getDate() - (parseInt(period) - 1));
+  return { since: fmt(since), until: fmt(yesterday), label: 'Últimos ' + period + ' dias' };
 }
 
-async function loadMetrics() {
-  const accId = document.getElementById('account-select').value;
+function loadMetrics() {
+  var accId = document.getElementById('account-select').value;
   if (!accId) { showError('error-metrics', 'Selecione uma conta primeiro.'); return; }
 
-  const csSel = document.getElementById('campaign-select');
-  const campaignId = csSel.value;
-  campaignName = csSel.options[csSel.selectedIndex]?.textContent || 'Todas as campanhas';
+  var csSel = document.getElementById('campaign-select');
+  var campaignId = csSel.value;
+  campaignName = csSel.options[csSel.selectedIndex] ? csSel.options[csSel.selectedIndex].textContent : 'Todas as campanhas';
 
-  const period = document.getElementById('period-select').value;
-  const { since, until, label } = getDateRange(period);
-  const dateRange = JSON.stringify({ since, until });
+  var adsetSel = document.getElementById('adset-select');
+  var adsetId = adsetSel.value;
+  adsetName = adsetId && adsetSel.options[adsetSel.selectedIndex] ? adsetSel.options[adsetSel.selectedIndex].textContent : '';
+
+  var period = document.getElementById('period-select').value;
+  var range = getDateRange(period);
+  var dateRange = JSON.stringify({ since: range.since, until: range.until });
 
   showError('error-metrics', '');
-  const btn = document.getElementById('btn-metrics');
-  btn.innerHTML = '<span class="spinner"></span> Buscando...';
+  var btn = document.getElementById('btn-metrics');
+  btn.innerHTML = '<span class="spinner white"></span> Buscando...';
   btn.disabled = true;
 
-  try {
-    const target = campaignId
-      ? `https://graph.facebook.com/v19.0/${campaignId}/insights`
-      : `https://graph.facebook.com/v19.0/${accId}/insights`;
+  var target = adsetId
+    ? 'https://graph.facebook.com/v19.0/' + adsetId + '/insights'
+    : campaignId
+      ? 'https://graph.facebook.com/v19.0/' + campaignId + '/insights'
+      : 'https://graph.facebook.com/v19.0/' + accId + '/insights';
 
-    const fields = 'impressions,clicks,spend,cpm,cpc,ctr,reach,actions';
-    const res = await fetch(`${target}?fields=${fields}&time_range=${encodeURIComponent(dateRange)}&access_token=${TOKEN}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
+  var fields = 'impressions,clicks,spend,cpm,cpc,ctr,reach,frequency,actions';
 
-    const d = data.data?.[0];
-    if (!d) {
-      showError('error-metrics', 'Sem dados para o período selecionado.');
+  fetch(target + '?fields=' + fields + '&time_range=' + encodeURIComponent(dateRange) + '&access_token=' + TOKEN)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) throw new Error(data.error.message);
+      var d = data.data && data.data[0];
+      if (!d) {
+        showError('error-metrics', 'Sem dados para o período selecionado.');
+        btn.innerHTML = 'Buscar métricas';
+        btn.disabled = false;
+        return;
+      }
+
+      var actions = d.actions || [];
+      var conversions = null;
+      var types = ['offsite_conversion.fb_pixel_purchase', 'purchase', 'lead'];
+      for (var i = 0; i < types.length; i++) {
+        var found = actions.find(function(a) { return a.action_type === types[i]; });
+        if (found) { conversions = found.value; break; }
+      }
+
+      var mensagens = null;
+      var msgAction = actions.find(function(a) {
+        return a.action_type === 'onsite_conversion.messaging_conversation_started_7d'
+          || a.action_type === 'onsite_conversion.messaging_first_reply'
+          || a.action_type === 'messaging_conversation_started_7d';
+      });
+      if (msgAction) { mensagens = parseInt(msgAction.value).toLocaleString('pt-BR'); }
+
+      var visitasPerfil = null;
+      var visitasAction = actions.find(function(a) {
+        return a.action_type === 'instagram_profile_visit'
+          || a.action_type === 'onsite_conversion.view_content';
+      });
+      if (visitasAction) { visitasPerfil = parseInt(visitasAction.value).toLocaleString('pt-BR'); }
+
+      var spend = parseFloat(d.spend || 0);
+      var msgRaw = msgAction ? parseInt(msgAction.value) : 0;
+      var custoPorConversa = (msgRaw > 0) ? (spend / msgRaw).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : null;
+
+      metricsData = {
+        impressoes: parseInt(d.impressions || 0).toLocaleString('pt-BR'),
+        alcance: parseInt(d.reach || 0).toLocaleString('pt-BR'),
+        cliques: parseInt(d.clicks || 0).toLocaleString('pt-BR'),
+        gasto: parseFloat(d.spend || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+        cpm: parseFloat(d.cpm || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+        cpc: parseFloat(d.cpc || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+        ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
+        frequencia: parseFloat(d.frequency || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
+        mensagens: mensagens,
+        visitasPerfil: visitasPerfil,
+        custoPorConversa: custoPorConversa,
+        label: range.label,
+        since: range.since,
+        until: range.until
+      };
+
+      renderMetrics();
+      renderWhatsapp();
+      analyzeMetrics();
       btn.innerHTML = 'Buscar métricas';
       btn.disabled = false;
-      return;
-    }
-
-    const conversions = (d.actions || []).find(a => a.action_type === 'offsite_conversion.fb_pixel_purchase')?.value
-      || (d.actions || []).find(a => a.action_type === 'purchase')?.value
-      || (d.actions || []).find(a => a.action_type === 'lead')?.value
-      || null;
-
-    metricsData = {
-      impressoes: parseInt(d.impressions || 0).toLocaleString('pt-BR'),
-      alcance: parseInt(d.reach || 0).toLocaleString('pt-BR'),
-      cliques: parseInt(d.clicks || 0).toLocaleString('pt-BR'),
-      gasto: parseFloat(d.spend || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-      cpm: parseFloat(d.cpm || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-      cpc: parseFloat(d.cpc || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-      ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
-      conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
-      label, since, until
-    };
-
-    renderMetrics();
-    renderWhatsapp();
-    btn.innerHTML = 'Buscar métricas';
-    btn.disabled = false;
-  } catch(e) {
-    showError('error-metrics', 'Erro: ' + e.message);
-    btn.innerHTML = 'Buscar métricas';
-    btn.disabled = false;
-  }
+    })
+    .catch(function(e) {
+      showError('error-metrics', 'Erro: ' + e.message);
+      btn.innerHTML = 'Buscar métricas';
+      btn.disabled = false;
+    });
 }
 
 function renderMetrics() {
-  document.getElementById('metrics-period-label').textContent = `· ${metricsData.label}`;
-  const cards = [
+  document.getElementById('metrics-period-label').textContent = '· ' + metricsData.label;
+  var cards = [
     { label: 'Impressões', value: metricsData.impressoes },
     { label: 'Alcance', value: metricsData.alcance },
     { label: 'Cliques', value: metricsData.cliques },
     { label: 'CTR', value: metricsData.ctr },
+    { label: 'Frequência', value: metricsData.frequencia + 'x' },
     { label: 'Gasto total', value: metricsData.gasto },
     { label: 'CPM', value: metricsData.cpm },
-    { label: 'CPC', value: metricsData.cpc },
+    { label: 'CPC', value: metricsData.cpc }
   ];
-  if (metricsData.conversoes) cards.push({ label: 'Conversões', value: metricsData.conversoes });
+  if (metricsData.conversoes) { cards.push({ label: 'Conversões', value: metricsData.conversoes }); }
+  if (metricsData.mensagens) { cards.push({ label: 'Mensagens iniciadas', value: metricsData.mensagens }); }
+  if (metricsData.custoPorConversa) { cards.push({ label: 'Custo por conversa', value: metricsData.custoPorConversa }); }
+  if (metricsData.visitasPerfil) { cards.push({ label: 'Visitas ao perfil', value: metricsData.visitasPerfil }); }
 
-  document.getElementById('metrics-grid').innerHTML = cards.map(c =>
-    `<div class="metric"><div class="metric-label">${c.label}</div><div class="metric-value">${c.value}</div></div>`
-  ).join('');
+  document.getElementById('metrics-grid').innerHTML = cards.map(function(c) {
+    return '<div class="metric"><div class="metric-label">' + c.label + '</div><div class="metric-value">' + c.value + '</div></div>';
+  }).join('');
 
-  unlock('section-metrics');
+  show('section-metrics');
 }
 
 function renderWhatsapp() {
-  const m = metricsData;
-  const conv = m.conversoes ? `\n🎯 Conversões: ${m.conversoes}` : '';
-  const msg =
-`📊 *Relatório de Anúncios*
-📅 ${m.label} (${m.since} → ${m.until})
-📣 Campanha: ${campaignName}
-🏢 Conta: ${accountName}
+  var m = metricsData;
+  var conv = m.conversoes ? '\n🎯 Conversões: ' + m.conversoes : '';
+  var msgs = m.mensagens ? '\n💬 Mensagens iniciadas: ' + m.mensagens : '';
+  var custoConv = m.custoPorConversa ? '\n💵 Custo por conversa: ' + m.custoPorConversa : '';
+  var visitas = m.visitasPerfil ? '\n👤 Visitas ao perfil: ' + m.visitasPerfil : '';
+  var adsetLine = adsetName ? '\n📂 Conjunto: ' + adsetName : '';
+  var since = m.since.split('-').reverse().join('/');
+  var until = m.until.split('-').reverse().join('/');
 
-👁️ Impressões: ${m.impressoes}
-👥 Alcance: ${m.alcance}
-🖱️ Cliques: ${m.cliques}
-📈 CTR: ${m.ctr}
-💰 Gasto total: ${m.gasto}
-📌 CPM: ${m.cpm}
-🔗 CPC: ${m.cpc}${conv}
-
-_Relatório gerado automaticamente._`;
+  var msg = '📊 *Relatório de Anúncios*\n'
+    + '📅 ' + m.label + ' (' + since + ' → ' + until + ')\n'
+    + '🏢 Conta: ' + accountName + '\n'
+    + '📣 Campanha: ' + campaignName + adsetLine + '\n'
+    + '\n'
+    + '👁️ Impressões: ' + m.impressoes + '\n'
+    + '👥 Alcance: ' + m.alcance + '\n'
+    + '🔁 Frequência: ' + m.frequencia + 'x\n'
+    + '🖱️ Cliques: ' + m.cliques + '\n'
+    + '📈 CTR: ' + m.ctr + '\n'
+    + '💰 Investimento: ' + m.gasto + '\n'
+    + '📌 CPM: ' + m.cpm + '\n'
+    + '🔗 CPC: ' + m.cpc
+    + conv + msgs + custoConv + visitas + '\n'
+    + '\n'
+    + '*O que significa cada métrica?*\n'
+    + '• Impressões: quantas vezes o anúncio foi exibido\n'
+    + '• Alcance: pessoas únicas que viram o anúncio\n'
+    + '• Frequência: média de vezes que cada pessoa viu\n'
+    + '• Cliques: acessos ao site ou link do anúncio\n'
+    + '• CTR: % de pessoas que clicaram após ver\n'
+    + '• Investimento: total gasto no período\n'
+    + '• CPM: custo para exibir o anúncio 1.000 vezes\n'
+    + '• CPC: custo médio por clique\n'
+    + '• Conversões: ações realizadas após clicar (compra, cadastro, contato etc.)\n'
+    + '• Mensagens iniciadas: conversas abertas pelo anúncio no WhatsApp ou Messenger\n'
+    + '• Visitas ao perfil: acessos ao perfil do Instagram gerados pelo anúncio';
 
   document.getElementById('whats-text').textContent = msg;
-  unlock('section-whatsapp');
+  renderWhatsappResumo();
+  show('section-whatsapp');
+}
+
+function renderWhatsappResumo() {
+  var m = metricsData;
+  var since = m.since.split('-').reverse().join('/');
+  var until = m.until.split('-').reverse().join('/');
+
+  var msg = '📊 RELATÓRIO DA SEMANA\n'
+    + '📲 ' + accountName + '\n'
+    + '📅 Período: ' + since + ' até ' + until + '\n'
+    + '💸 Investimento Total: ' + m.gasto + '\n'
+    + '\n'
+    + '📣 ' + campaignName.toUpperCase() + '\n'
+    + '• Alcance: ' + m.alcance + '\n'
+    + '• Cliques: ' + m.cliques + '\n'
+    + '• CTR: ' + m.ctr + '\n'
+    + '• Frequência: ' + m.frequencia + 'x\n'
+    + '• Valor Gasto: ' + m.gasto;
+
+  if (m.visitasPerfil) { msg += '\n• Visitas ao Perfil: ' + m.visitasPerfil; }
+  if (m.mensagens) {
+    msg += '\n\n💬 MENSAGENS'
+      + '\n• Conversas: ' + m.mensagens
+      + '\n• Valor Gasto: ' + m.gasto;
+    if (m.custoPorConversa) { msg += '\n• Custo por Conversa: ' + m.custoPorConversa; }
+  }
+  if (m.conversoes) {
+    msg += '\n\n🎯 CONVERSÕES'
+      + '\n• Total: ' + m.conversoes;
+  }
+
+  document.getElementById('whats-text-resumo').textContent = msg;
+}
+
+function analyzeMetrics() {
+  var m = metricsData;
+  var el = document.getElementById('analysis-content');
+  show('section-analysis');
+  el.innerHTML = '<div class="analysis-loading"><span class="spinner"></span> Analisando métricas com IA...</div>';
+
+  var prompt = 'Você é um especialista em tráfego pago no Meta Ads. Analise as métricas abaixo e gere um diagnóstico rápido e objetivo para o gestor de tráfego.\n\n'
+    + 'Campanha: ' + campaignName + '\n'
+    + 'Período: ' + m.label + '\n'
+    + 'Impressões: ' + m.impressoes + '\n'
+    + 'Alcance: ' + m.alcance + '\n'
+    + 'Frequência: ' + m.frequencia + 'x\n'
+    + 'Cliques: ' + m.cliques + '\n'
+    + 'CTR: ' + m.ctr + '\n'
+    + 'Investimento: ' + m.gasto + '\n'
+    + 'CPM: ' + m.cpm + '\n'
+    + 'CPC: ' + m.cpc + '\n'
+    + (m.conversoes ? 'Conversões: ' + m.conversoes + '\n' : 'Conversões: não registradas\n')
+    + (m.mensagens ? 'Mensagens iniciadas: ' + m.mensagens + '\n' : '')
+    + '\nGere entre 3 e 5 pontos curtos e diretos. Cada ponto deve começar com um emoji: ✅ para bom, ⚠️ para atenção, 🔴 para problema. Escreva em português brasileiro. Sem introdução, sem conclusão, apenas os pontos.';
+
+  fetch('https://meta-ads-ai.menegazjr.workers.dev', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.text || 'Não foi possível gerar a análise.';
+    var html = text.split('\n').filter(function(l) { return l.trim(); }).map(function(l) {
+      return '<p>' + l.trim() + '</p>';
+    }).join('');
+    el.innerHTML = '<div class="analysis-box">' + html + '</div>';
+  })
+  .catch(function() {
+    el.innerHTML = '<div class="analysis-box" style="color:var(--muted)">Não foi possível conectar ao serviço de análise.</div>';
+  });
 }
 
 function copyMsg() {
-  const txt = document.getElementById('whats-text').textContent;
-  navigator.clipboard.writeText(txt).then(() => {
-    const btn = document.getElementById('btn-copy');
+  var txt = document.getElementById('whats-text').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    var btn = document.getElementById('btn-copy');
     btn.innerHTML = '✓ Copiado!';
-    setTimeout(() => btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar mensagem`, 2000);
+    setTimeout(function() {
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar mensagem';
+    }, 2000);
+  });
+}
+
+function copyMsgResumo() {
+  var txt = document.getElementById('whats-text-resumo').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    var btn = document.getElementById('btn-copy-resumo');
+    btn.innerHTML = '✓ Copiado!';
+    setTimeout(function() {
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar resumo';
+    }, 2000);
   });
 }
 
 function openWhatsApp() {
-  const txt = encodeURIComponent(document.getElementById('whats-text').textContent);
+  var txt = encodeURIComponent(document.getElementById('whats-text').textContent);
+  window.open('https://wa.me/?text=' + txt, '_blank');
+}
+
+function openWhatsAppResumo() {
+  var txt = encodeURIComponent(document.getElementById('whats-text-resumo').textContent);
   window.open('https://wa.me/?text=' + txt, '_blank');
 }
 </script>
