@@ -44,6 +44,8 @@
   .error { font-size: 13px; color: var(--danger); background: var(--danger-bg); border-radius: 6px; padding: 8px 12px; margin-top: 8px; display: none; }
   .whats-box { background: #e9fbe5; border: 1px solid #c3edb8; border-radius: 8px; padding: 1rem 1.25rem; font-size: 14px; line-height: 1.65; white-space: pre-wrap; color: #1a1917; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
   .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .section-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
   .user-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 1.25rem; font-size: 13px; }
   .user-bar img { width: 28px; height: 28px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
   .user-bar a { font-size: 12px; color: var(--danger); cursor: pointer; text-decoration: none; }
@@ -141,13 +143,30 @@
 
     <div class="card" id="section-whatsapp" style="display:none">
       <div class="card-title"><span class="step-num">4</span> Mensagem para WhatsApp</div>
+
+      <div class="section-label">Formato completo</div>
       <div class="whats-box" id="whats-text"></div>
-      <div class="btn-row">
+      <div class="btn-row" style="margin-bottom:0">
         <button id="btn-copy">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           Copiar mensagem
         </button>
         <button class="green" id="btn-whatsapp">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.849L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.001-1.368l-.36-.214-3.733.979.994-3.639-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
+          Abrir WhatsApp
+        </button>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-label">Formato resumido</div>
+      <div class="whats-box" id="whats-text-resumo"></div>
+      <div class="btn-row">
+        <button id="btn-copy-resumo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar resumo
+        </button>
+        <button class="green" id="btn-whatsapp-resumo">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.849L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.001-1.368l-.36-.214-3.733.979.994-3.639-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
           Abrir WhatsApp
         </button>
@@ -188,7 +207,6 @@ function showError(id, msg) {
   el.textContent = msg;
   el.style.display = msg ? 'block' : 'none';
 }
-
 function show(id) { document.getElementById(id).style.display = 'block'; }
 function hide(id) { document.getElementById(id).style.display = 'none'; }
 
@@ -218,6 +236,8 @@ document.getElementById('campaign-select').addEventListener('change', loadAdsets
 document.getElementById('btn-metrics').addEventListener('click', loadMetrics);
 document.getElementById('btn-copy').addEventListener('click', copyMsg);
 document.getElementById('btn-whatsapp').addEventListener('click', openWhatsApp);
+document.getElementById('btn-copy-resumo').addEventListener('click', copyMsgResumo);
+document.getElementById('btn-whatsapp-resumo').addEventListener('click', openWhatsAppResumo);
 
 function onLoginSuccess(token) {
   TOKEN = token;
@@ -250,9 +270,7 @@ function loadAccounts() {
       });
       show('section-campaigns');
     })
-    .catch(function(e) {
-      showError('error-login', 'Erro ao carregar contas: ' + e.message);
-    });
+    .catch(function(e) { showError('error-login', 'Erro ao carregar contas: ' + e.message); });
 }
 
 function loadCampaigns() {
@@ -277,9 +295,7 @@ function loadCampaigns() {
         cs.appendChild(opt);
       });
     })
-    .catch(function(e) {
-      showError('error-account', 'Erro ao carregar campanhas: ' + e.message);
-    });
+    .catch(function(e) { showError('error-account', 'Erro ao carregar campanhas: ' + e.message); });
 }
 
 function loadAdsets() {
@@ -290,11 +306,9 @@ function loadAdsets() {
   adsetSel.innerHTML = '<option value="">Todos os conjuntos</option>';
   var parentId = campaignId || accId;
   if (!parentId) return;
-
   var endpoint = campaignId
     ? 'https://graph.facebook.com/v19.0/' + campaignId + '/adsets?fields=name&limit=100&access_token=' + TOKEN
     : 'https://graph.facebook.com/v19.0/' + accId + '/adsets?fields=name&limit=100&access_token=' + TOKEN;
-
   fetch(endpoint)
     .then(function(r) { return r.json(); })
     .then(function(data) {
@@ -314,7 +328,6 @@ function getDateRange(period) {
   var yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
   function fmt(d) { return d.toISOString().split('T')[0]; }
-
   if (period === 'this_month') {
     return { since: fmt(new Date(today.getFullYear(), today.getMonth(), 1)), until: fmt(yesterday), label: 'Este mês' };
   }
@@ -370,32 +383,50 @@ function loadMetrics() {
       }
 
       var actions = d.actions || [];
+
+      // Conversões
       var conversions = null;
-      var types = ['offsite_conversion.fb_pixel_purchase', 'purchase', 'lead'];
-      for (var i = 0; i < types.length; i++) {
-        var found = actions.find(function(a) { return a.action_type === types[i]; });
+      var convTypes = ['offsite_conversion.fb_pixel_purchase', 'purchase', 'lead'];
+      for (var i = 0; i < convTypes.length; i++) {
+        var found = actions.find(function(a) { return a.action_type === convTypes[i]; });
         if (found) { conversions = found.value; break; }
       }
 
+      // Mensagens iniciadas
       var mensagens = null;
       var msgAction = actions.find(function(a) {
         return a.action_type === 'onsite_conversion.messaging_conversation_started_7d'
           || a.action_type === 'onsite_conversion.messaging_first_reply'
           || a.action_type === 'messaging_conversation_started_7d';
       });
-      if (msgAction) { mensagens = parseInt(msgAction.value).toLocaleString('pt-BR'); }
+      if (msgAction) { mensagens = parseInt(msgAction.value); }
+
+      // Visitas ao perfil
+      var visitasPerfil = null;
+      var visitasAction = actions.find(function(a) {
+        return a.action_type === 'instagram_profile_visit';
+      });
+      if (visitasAction) { visitasPerfil = parseInt(visitasAction.value); }
+
+      // Custo por conversa
+      var spend = parseFloat(d.spend || 0);
+      var custoPorConversa = (mensagens && mensagens > 0)
+        ? (spend / mensagens).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+        : null;
 
       metricsData = {
         impressoes: parseInt(d.impressions || 0).toLocaleString('pt-BR'),
         alcance: parseInt(d.reach || 0).toLocaleString('pt-BR'),
         cliques: parseInt(d.clicks || 0).toLocaleString('pt-BR'),
-        gasto: parseFloat(d.spend || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+        gasto: spend.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
         cpm: parseFloat(d.cpm || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
         cpc: parseFloat(d.cpc || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
         ctr: parseFloat(d.ctr || 0).toFixed(2) + '%',
         frequencia: parseFloat(d.frequency || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
         conversoes: conversions ? parseInt(conversions).toLocaleString('pt-BR') : null,
-        mensagens: mensagens,
+        mensagens: mensagens ? mensagens.toLocaleString('pt-BR') : null,
+        visitasPerfil: visitasPerfil ? visitasPerfil.toLocaleString('pt-BR') : null,
+        custoPorConversa: custoPorConversa,
         label: range.label,
         since: range.since,
         until: range.until
@@ -428,6 +459,8 @@ function renderMetrics() {
   ];
   if (metricsData.conversoes) { cards.push({ label: 'Conversões', value: metricsData.conversoes }); }
   if (metricsData.mensagens) { cards.push({ label: 'Mensagens iniciadas', value: metricsData.mensagens }); }
+  if (metricsData.custoPorConversa) { cards.push({ label: 'Custo por conversa', value: metricsData.custoPorConversa }); }
+  if (metricsData.visitasPerfil) { cards.push({ label: 'Visitas ao perfil', value: metricsData.visitasPerfil }); }
 
   document.getElementById('metrics-grid').innerHTML = cards.map(function(c) {
     return '<div class="metric"><div class="metric-label">' + c.label + '</div><div class="metric-value">' + c.value + '</div></div>';
@@ -438,11 +471,15 @@ function renderMetrics() {
 
 function renderWhatsapp() {
   var m = metricsData;
-  var conv = m.conversoes ? '\n🎯 Conversões: ' + m.conversoes : '';
-  var msgs = m.mensagens ? '\n💬 Mensagens iniciadas: ' + m.mensagens : '';
   var adsetLine = adsetName ? '\n📂 Conjunto: ' + adsetName : '';
   var since = m.since.split('-').reverse().join('/');
   var until = m.until.split('-').reverse().join('/');
+
+  var extras = '';
+  if (m.conversoes) { extras += '\n🎯 Conversões: ' + m.conversoes; }
+  if (m.mensagens) { extras += '\n💬 Mensagens iniciadas: ' + m.mensagens; }
+  if (m.custoPorConversa) { extras += '\n💵 Custo por conversa: ' + m.custoPorConversa; }
+  if (m.visitasPerfil) { extras += '\n👤 Visitas ao perfil: ' + m.visitasPerfil; }
 
   var msg = '📊 *Relatório de Anúncios*\n'
     + '📅 ' + m.label + ' (' + since + ' → ' + until + ')\n'
@@ -457,7 +494,7 @@ function renderWhatsapp() {
     + '💰 Investimento: ' + m.gasto + '\n'
     + '📌 CPM: ' + m.cpm + '\n'
     + '🔗 CPC: ' + m.cpc
-    + conv + msgs + '\n'
+    + extras + '\n'
     + '\n'
     + '*O que significa cada métrica?*\n'
     + '• Impressões: quantas vezes o anúncio foi exibido\n'
@@ -468,9 +505,39 @@ function renderWhatsapp() {
     + '• Investimento: total gasto no período\n'
     + '• CPM: custo para exibir o anúncio 1.000 vezes\n'
     + '• CPC: custo médio por clique\n'
-    + '• Conversões: ações realizadas após clicar (compra, cadastro, contato etc.)';
+    + '• Conversões: ações realizadas após clicar (compra, cadastro, contato etc.)\n'
+    + '• Mensagens iniciadas: conversas abertas pelo anúncio no WhatsApp ou Messenger\n'
+    + '• Visitas ao perfil: acessos ao perfil do Instagram gerados pelo anúncio';
 
   document.getElementById('whats-text').textContent = msg;
+
+  // Formato resumido
+  var resumo = '📊 RELATÓRIO DA SEMANA\n'
+    + '📲 ' + accountName + '\n'
+    + '📅 Período: ' + since + ' até ' + until + '\n'
+    + '💸 Investimento Total: ' + m.gasto + '\n'
+    + '\n'
+    + '📣 ' + campaignName.toUpperCase() + '\n'
+    + '• Alcance: ' + m.alcance + '\n'
+    + '• Cliques: ' + m.cliques + '\n'
+    + '• CTR: ' + m.ctr + '\n'
+    + '• Frequência: ' + m.frequencia + 'x\n'
+    + '• Valor Gasto: ' + m.gasto;
+
+  if (m.visitasPerfil) { resumo += '\n• Visitas ao Perfil: ' + m.visitasPerfil; }
+
+  if (m.mensagens) {
+    resumo += '\n\n💬 MENSAGENS\n'
+      + '• Conversas: ' + m.mensagens + '\n'
+      + '• Valor Gasto: ' + m.gasto;
+    if (m.custoPorConversa) { resumo += '\n• Custo por Conversa: ' + m.custoPorConversa; }
+  }
+
+  if (m.conversoes) {
+    resumo += '\n\n🎯 CONVERSÕES\n• Total: ' + m.conversoes;
+  }
+
+  document.getElementById('whats-text-resumo').textContent = resumo;
   show('section-whatsapp');
 }
 
@@ -482,7 +549,6 @@ function analyzeMetrics() {
 
   var prompt =
 'Você é um gestor de tráfego especialista em Meta Ads.\n\n' +
-
 'Analise SOMENTE os dados fornecidos.\n' +
 'Não invente informações.\n' +
 'Não faça suposições sobre o objetivo da campanha.\n' +
@@ -499,7 +565,6 @@ function analyzeMetrics() {
 'Considere conversões como um resultado positivo.\n' +
 'Somente classifique algo como problema crítico quando houver evidência clara nos números.\n' +
 'Se faltarem dados para uma conclusão, informe que não há dados suficientes.\n\n' +
-
 'Campanha: ' + campaignName + '\n' +
 'Período: ' + m.label + '\n' +
 'Impressões: ' + m.impressoes + '\n' +
@@ -512,13 +577,12 @@ function analyzeMetrics() {
 'CPC: ' + m.cpc + '\n' +
 (m.conversoes ? 'Conversões: ' + m.conversoes + '\n' : 'Conversões: não informadas\n') +
 (m.mensagens ? 'Mensagens iniciadas: ' + m.mensagens + '\n' : 'Mensagens iniciadas: não informadas\n') +
-
+(m.visitasPerfil ? 'Visitas ao perfil: ' + m.visitasPerfil + '\n' : '') +
+(m.custoPorConversa ? 'Custo por conversa: ' + m.custoPorConversa + '\n' : '') +
 '\nRetorne exatamente neste formato:\n\n' +
-
 '✅ Pontos positivos\n' +
 '⚠️ Pontos de atenção\n' +
 '🔴 Problemas críticos\n\n' +
-
 'Regras finais:\n' +
 '- Mínimo 5 tópicos.\n' +
 '- Sem introdução.\n' +
@@ -527,7 +591,7 @@ function analyzeMetrics() {
 '- Não repita métricas.\n' +
 '- Não invente objetivos da campanha.\n' +
 '- Não invente problemas sem evidência.';
-  
+
   fetch('https://meta-ads-ai.menegazjr.workers.dev', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -557,8 +621,24 @@ function copyMsg() {
   });
 }
 
+function copyMsgResumo() {
+  var txt = document.getElementById('whats-text-resumo').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    var btn = document.getElementById('btn-copy-resumo');
+    btn.innerHTML = '✓ Copiado!';
+    setTimeout(function() {
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar resumo';
+    }, 2000);
+  });
+}
+
 function openWhatsApp() {
   var txt = encodeURIComponent(document.getElementById('whats-text').textContent);
+  window.open('https://wa.me/?text=' + txt, '_blank');
+}
+
+function openWhatsAppResumo() {
+  var txt = encodeURIComponent(document.getElementById('whats-text-resumo').textContent);
   window.open('https://wa.me/?text=' + txt, '_blank');
 }
 </script>
